@@ -1,4 +1,4 @@
-package main
+package router
 
 import (
 	"github.com/gorilla/sessions"
@@ -8,12 +8,15 @@ import (
 	"github.com/labstack/gommon/log"
 )
 
-func setupEcho() *echo.Echo {
+func SetupEcho() *echo.Echo {
 	e := newEcho()
 
-	e.GET("/ping", func(c echo.Context) error {
-		return c.String(200, "pong")
-	})
+	api := e.Group("/api")
+	{
+		api.GET("/ping", func(c echo.Context) error {
+			return c.String(200, "pong")
+		})
+	}
 
 	e.Static("/", "client/dist")
 
