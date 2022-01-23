@@ -7,18 +7,16 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var version string
+var (
+	configFile string
+	version    string
+)
 
 var rootCmd = &cobra.Command{
 	Use:  "remote-bmi",
-	Long: `ISUCON Practice Remote Bench Marker Interface Server`,
+	Long: "Remote-BMI - Bench Marker Web UI for ISUCON Practice",
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		cfgFile, err := cmd.PersistentFlags().GetString("config")
-		if err != nil {
-			cfgFile = ""
-		}
-
-		err = loadConfig(cfgFile)
+		err := loadConfig(configFile)
 		if err != nil {
 			log.Panicf("failed to load config: %v", err)
 		}
@@ -33,8 +31,8 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringP("config", "c", "config.json", "config file (default is config.json)")
-	rootCmd.PersistentFlags().StringVarP(&version, "version", "v", "", "running ISUCON exercise version")
+	rootCmd.PersistentFlags().StringVarP(&configFile, "config", "c", "config.json", "config file")
+	rootCmd.PersistentFlags().StringVarP(&version, "version", "v", "ISUCON-test", "running ISUCON exercise version")
 }
 
 func Execute() {
