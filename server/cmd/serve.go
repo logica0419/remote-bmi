@@ -13,12 +13,16 @@ var serveCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		e := router.SetupEcho()
 
-		e.Logger.Panic(e.Start(address))
+		if address != "" {
+			cfg.Address = address
+		}
+
+		e.Logger.Panic(e.Start(cfg.Address))
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(serveCmd)
 
-	serveCmd.Flags().StringVarP(&address, "address", "a", ":3000", "Address to listen")
+	serveCmd.Flags().StringVarP(&address, "address", "a", "", "Address to listen")
 }
