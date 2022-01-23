@@ -15,6 +15,8 @@ func setupEcho() *echo.Echo {
 		return c.String(200, "pong")
 	})
 
+	e.Static("/", "client/dist")
+
 	return e
 }
 

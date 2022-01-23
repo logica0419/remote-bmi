@@ -1,7 +1,8 @@
 .PHONY:run
-run:
-	go run server/*.go
+run: build
+	@./remote-bmi
 
 .PHONY: build
 build:
-	go build server/*.go -o remote-bmi
+	@cd client && npm run build
+	@go build -o remote-bmi server/*.go
