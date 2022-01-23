@@ -1,7 +1,8 @@
 package cmd
 
 import (
-	"github.com/logica0419/remote-bmi/server/router"
+	"log"
+
 	"github.com/spf13/cobra"
 )
 
@@ -11,13 +12,16 @@ var serveCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Run Remote-BMI Server",
 	Run: func(cmd *cobra.Command, args []string) {
-		e := router.SetupEcho()
-
 		if address != "" {
-			cfg.Address = address
+			c.Address = address
 		}
 
-		e.Logger.Panic(e.Start(cfg.Address))
+		r, err := setupRouter(c)
+		if err != nil {
+			log.Panicf("failed to setup router: %v", err)
+		}
+
+		r.Run()
 	},
 }
 

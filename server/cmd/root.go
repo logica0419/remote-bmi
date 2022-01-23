@@ -24,7 +24,7 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringP("config", "c", "", "config file (default is config.json)")
+	rootCmd.PersistentFlags().StringP("config", "c", "config.json", "config file (default is config.json)")
 }
 
 func Execute() {

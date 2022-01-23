@@ -6,9 +6,20 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
+	"github.com/logica0419/remote-bmi/server/repository"
 )
 
-func SetupEcho() *echo.Echo {
+type Router struct {
+	e          *echo.Echo
+	address    string
+	repository *repository.Repository
+}
+
+type Config struct {
+	Address string
+}
+
+func NewRouter(c *Config, repo *repository.Repository) *Router {
 	e := newEcho()
 
 	api := e.Group("/api")
@@ -23,7 +34,11 @@ func SetupEcho() *echo.Echo {
 
 	e.Static("/", "client/dist")
 
-	return e
+	return &Router{
+		e:          e,
+		address:    c.Address,
+		repository: repo,
+	}
 }
 
 func newEcho() *echo.Echo {
@@ -36,4 +51,8 @@ func newEcho() *echo.Echo {
 	e.Use(session.Middleware(sessions.NewCookieStore([]byte("secret"))))
 
 	return e
+}
+
+func (r *Router) Run() {
+	r.e.Logger.Fatal(r.e.Start(r.address))
 }

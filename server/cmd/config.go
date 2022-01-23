@@ -5,11 +5,13 @@ import (
 	"log"
 
 	"github.com/davecgh/go-spew/spew"
+	"github.com/logica0419/remote-bmi/server/repository"
+	"github.com/logica0419/remote-bmi/server/router"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
-var cfg = &Config{}
+var c = &Config{}
 
 type Config struct {
 	Address string `mapstructure:"address" json:"address"`
@@ -22,7 +24,23 @@ type Config struct {
 	} `mapstructure:"mysql" json:"mysql"`
 }
 
-func loadConfig(cfgFile string) error {
+func newRouterConfig(c *Config) *router.Config {
+	return &router.Config{
+		Address: c.Address,
+	}
+}
+
+func newRepositoryConfig(c *Config) *repository.Config {
+	return &repository.Config{
+		Hostname: c.MySQL.Hostname,
+		Port:     c.MySQL.Port,
+		Username: c.MySQL.Username,
+		Password: c.MySQL.Password,
+		Database: c.MySQL.Database,
+	}
+}
+
+func loadConfig(configFile string) error {
 	viper.SetDefault("address", ":3000")
 	viper.SetDefault("mysql.hostname", "127.0.0.1")
 	viper.SetDefault("mysql.port", 3306)
@@ -32,13 +50,7 @@ func loadConfig(cfgFile string) error {
 
 	viper.AutomaticEnv()
 
-	if cfgFile != "" {
-		viper.SetConfigFile(cfgFile)
-	} else {
-		viper.AddConfigPath(".")
-		viper.SetConfigName("config")
-		viper.SetConfigType("json")
-	}
+	viper.SetConfigFile(configFile)
 
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
@@ -48,7 +60,7 @@ func loadConfig(cfgFile string) error {
 		}
 	}
 
-	err := viper.Unmarshal(cfg)
+	err := viper.Unmarshal(c)
 	if err != nil {
 		return fmt.Errorf("Error: failed to parse configs - %s ", err)
 	}
@@ -66,7 +78,7 @@ var configCmd = &cobra.Command{
 			Indent:                  "\t",
 			DisablePointerAddresses: true,
 		}
-		scs.Dump(cfg)
+		scs.Dump(c)
 	},
 }
 
