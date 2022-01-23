@@ -23,7 +23,7 @@ type Config struct {
 func NewRepository(c *Config) (*Repository, error) {
 	db, err := newDBConnection(c)
 	if err != nil {
-		return nil, fmt.Errorf("failed to connect to db :%w", err)
+		return nil, fmt.Errorf("failed to connect to db :%d", err)
 	}
 
 	return &Repository{db: db}, nil
@@ -35,14 +35,14 @@ func newDBConnection(c *Config) (*gorm.DB, error) {
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{Logger: logger.Default.LogMode(logLevel)})
 	if err != nil {
-		return nil, fmt.Errorf("failed to connect DB : %w", err)
+		return nil, fmt.Errorf("failed to connect DB: %d", err)
 	}
 
 	db = db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci")
 
 	err = db.AutoMigrate(User{}, Server{}, Log{})
 	if err != nil {
-		return nil, fmt.Errorf("failed to migrate: %w", err)
+		return nil, fmt.Errorf("failed to migrate: %d", err)
 	}
 
 	return db, nil
