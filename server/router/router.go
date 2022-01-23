@@ -1,6 +1,8 @@
 package router
 
 import (
+	"net/http"
+
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
@@ -17,18 +19,19 @@ type Router struct {
 
 type Config struct {
 	Address string
+	Version string
 }
 
-func NewRouter(c *Config, repo *repository.Repository) *Router {
+func NewRouter(cfg *Config, repo *repository.Repository) *Router {
 	e := newEcho()
 
 	api := e.Group("/api")
 	{
 		api.GET("/ping", func(c echo.Context) error {
-			return c.String(200, "pong")
+			return c.String(http.StatusOK, "pong")
 		})
 		api.GET("/version", func(c echo.Context) error {
-			return c.String(200, "0.0.1")
+			return c.String(http.StatusOK, cfg.Version)
 		})
 	}
 
@@ -36,7 +39,7 @@ func NewRouter(c *Config, repo *repository.Repository) *Router {
 
 	return &Router{
 		e:          e,
-		address:    c.Address,
+		address:    cfg.Address,
 		repository: repo,
 	}
 }

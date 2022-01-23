@@ -22,11 +22,13 @@ type Config struct {
 		Password string `mapstructure:"password" json:"password,omitempty"`
 		Database string `mapstructure:"database" json:"database,omitempty"`
 	} `mapstructure:"mysql" json:"mysql"`
+	Version string `mapstructure:"version" json:"version,omitempty"`
 }
 
 func newRouterConfig(c *Config) *router.Config {
 	return &router.Config{
 		Address: c.Address,
+		Version: c.Version,
 	}
 }
 
@@ -47,6 +49,7 @@ func loadConfig(configFile string) error {
 	viper.SetDefault("mysql.username", "isucon")
 	viper.SetDefault("mysql.password", "isucon")
 	viper.SetDefault("mysql.database", "Remote-BMI")
+	viper.SetDefault("version", "")
 
 	viper.AutomaticEnv()
 

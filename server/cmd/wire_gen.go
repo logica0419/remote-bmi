@@ -14,9 +14,9 @@ import (
 
 // Injectors from wire.go:
 
-func setupRouter(c *Config) (*router.Router, error) {
-	config := newRouterConfig(c)
-	repositoryConfig := newRepositoryConfig(c)
+func setupRouter(cfg *Config) (*router.Router, error) {
+	config := newRouterConfig(cfg)
+	repositoryConfig := newRepositoryConfig(cfg)
 	repositoryRepository, err := repository.NewRepository(repositoryConfig)
 	if err != nil {
 		return nil, err

@@ -17,7 +17,7 @@ var set = wire.NewSet(
 	router.NewRouter,
 )
 
-func setupRouter(c *Config) (*router.Router, error) {
+func setupRouter(cfg *Config) (*router.Router, error) {
 	wire.Build(set)
 	return nil, nil
 }
