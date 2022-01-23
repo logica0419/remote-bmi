@@ -16,7 +16,7 @@ const VersionDisplay: VFC = () => {
       });
   }, []);
 
-  return <div>ISUCON version: {version}</div>;
+  return <>ISUCON version: {version}</>;
 };
 
 export default VersionDisplay;
