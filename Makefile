@@ -10,3 +10,7 @@ build:
 .PHONY:run
 run: build
 	@./remote-bmi
+
+.PHONY:dev
+dev:
+	@cd client && npm run dev
