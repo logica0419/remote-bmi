@@ -1,0 +1,8 @@
+# .tbls.yml
+
+# DSN (Database Source Name) to connect database
+dsn: mariadb://root:password@localhost:3306/remote_bmi
+
+# Path to generate document
+# Default is `dbdoc`
+docPath: ./db_schema

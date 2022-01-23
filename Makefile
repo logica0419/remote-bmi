@@ -2,6 +2,10 @@
 wire:
 	@cd server/cmd && wire
 
+.PHONY: tbls
+tbls:
+	@cd server/docs && tbls doc
+
 .PHONY: build
 build: build-server build-client
 
