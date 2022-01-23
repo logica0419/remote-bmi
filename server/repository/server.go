@@ -17,3 +17,32 @@ type Server struct {
 func (Server) TableName() string {
 	return "server_list"
 }
+
+func (repo *Repository) SelectServersByUserID(userID uuid.UUID) ([]*Server, error) {
+	var servers []*Server
+
+	res := repo.getTx().Joins("User").Where("user_id = ?", userID).Find(&servers)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+
+	return servers, nil
+}
+
+func (repo *Repository) InsertServers(servers []*Server) error {
+	res := repo.getTx().Create(servers)
+	if res.Error != nil {
+		return res.Error
+	}
+
+	return nil
+}
+
+func (repo *Repository) UpdateServerAddress(userID uuid.UUID, serverNumber int, address url.URL) error {
+	res := repo.getTx().Model(&Server{}).Where("user_id = ? AND server_number = ?", userID, serverNumber).Update("address", address)
+	if res.Error != nil {
+		return res.Error
+	}
+
+	return nil
+}
