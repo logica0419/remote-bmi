@@ -24,5 +24,5 @@ var serveCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(serveCmd)
 
-	serveCmd.Flags().StringVarP(&address, "address", "a", "", "Address to listen")
+	serveCmd.Flags().StringVarP(&address, "address", "a", ":3000", "Address to listen")
 }
