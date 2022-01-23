@@ -12,6 +12,7 @@ const style = {
   `,
   title: css`
     font-size: calc(10px + 2vmin);
+    line-height: calc(15px + 2vmin);
   `,
   line: css`
     margin-top: 1em;
@@ -25,7 +26,7 @@ function App() {
   return (
     <div css={style.app}>
       <div css={style.title}>
-        <h1>Remote-BMI</h1>- ISUCON Practice Remote Bench Marker Interface -
+        <h1>Remote-BMI</h1>- Bench Marker Web UI for ISUCON Practice -
       </div>
       <div css={style.line} />
     </div>
