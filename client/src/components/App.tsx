@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import VersionDisplay from "./Version";
 
 const style = {
   app: css`
@@ -9,13 +10,14 @@ const style = {
     text-align: center;
     color: #000000;
     min-height: 100vh;
+    font-size: calc(5px + 2vmin);
   `,
   title: css`
     font-size: calc(10px + 2vmin);
     line-height: calc(15px + 2vmin);
   `,
   line: css`
-    margin-top: 1em;
+    margin: 1em 0;
     width: 70vw;
     height: 1px;
     background: #000000;
@@ -29,6 +31,7 @@ function App() {
         <h1>Remote-BMI</h1>- Bench Marker Web UI for ISUCON Practice -
       </div>
       <div css={style.line} />
+      <VersionDisplay />
     </div>
   );
 }
