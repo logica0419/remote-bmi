@@ -47,3 +47,7 @@ func newDBConnection(c *Config) (*gorm.DB, error) {
 
 	return db, nil
 }
+
+func (repo *Repository) getTx() *gorm.DB {
+	return repo.db.Session(&gorm.Session{})
+}
