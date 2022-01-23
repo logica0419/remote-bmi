@@ -1,8 +1,10 @@
 package repository
 
 import (
+	"database/sql"
 	"fmt"
 
+	_ "github.com/go-sql-driver/mysql"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -21,12 +23,32 @@ type Config struct {
 }
 
 func NewRepository(c *Config) (*Repository, error) {
+	err := createDB(c)
+	if err != nil {
+		return nil, err
+	}
+
 	db, err := newDBConnection(c)
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to db :%d", err)
 	}
 
 	return &Repository{db: db}, nil
+}
+
+func createDB(c *Config) error {
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/", c.Username, c.Password, c.Hostname, c.Port)
+	db, err := sql.Open("mysql", dsn)
+	if err != nil {
+		return err
+	}
+
+	_, err = db.Exec("CREATE DATABASE IF NOT EXISTS " + c.Database)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func newDBConnection(c *Config) (*gorm.DB, error) {

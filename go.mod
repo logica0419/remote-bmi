@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/davecgh/go-spew v1.1.1
+	github.com/go-sql-driver/mysql v1.6.0
 	github.com/google/wire v0.5.0
 	github.com/gorilla/sessions v1.2.1
 	github.com/labstack/echo-contrib v0.11.0
@@ -16,7 +17,6 @@ require (
 )
 
 require (
-	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
 )
