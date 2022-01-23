@@ -16,6 +16,9 @@ func SetupEcho() *echo.Echo {
 		api.GET("/ping", func(c echo.Context) error {
 			return c.String(200, "pong")
 		})
+		api.GET("/version", func(c echo.Context) error {
+			return c.String(200, "0.0.1")
+		})
 	}
 
 	e.Static("/", "client/dist")

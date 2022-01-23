@@ -1,9 +1,7 @@
 package main
 
-import "github.com/logica0419/remote-bmi/server/router"
+import "github.com/logica0419/remote-bmi/server/cmd"
 
 func main() {
-	e := router.SetupEcho()
-
-	e.Logger.Panic(e.Start(":3000"))
+	cmd.Execute()
 }
