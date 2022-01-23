@@ -1,4 +1,4 @@
-module github.com/logica0419/remote-bmarker
+module github.com/logica0419/remote-bmi
 
 go 1.17
 
