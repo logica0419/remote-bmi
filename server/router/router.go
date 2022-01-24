@@ -34,6 +34,7 @@ func NewRouter(cfg *Config, repo *repository.Repository, db *sql.DB) (*Router, e
 	}
 
 	cli := traq.NewAPIClient(traq.NewConfiguration())
+
 	r := &Router{
 		e:        e,
 		address:  cfg.Address,
@@ -57,9 +58,9 @@ func NewRouter(cfg *Config, repo *repository.Repository, db *sql.DB) (*Router, e
 			oauth.POST("/code", r.postOAuthCodeHandler)
 		}
 
-		user := api.Group("/user", checkLoginMiddleware)
+		user := api.Group("/users", checkLoginMiddleware)
 		{
-			user.GET("/me", r.getUserMeHandler)
+			user.GET("/me", r.getUsersMeHandler)
 		}
 
 		server := api.Group("/servers", checkLoginMiddleware)

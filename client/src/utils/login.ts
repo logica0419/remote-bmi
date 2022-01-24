@@ -18,7 +18,7 @@ export const useLoginCheck = () => {
     setCheckCompleted(false);
 
     await axios
-      .get<GetMeResponse>("/api/user/me")
+      .get<GetMeResponse>("/api/users/me")
       .then(({ data }) => {
         dispatch(setMe({ id: data.id, name: data.name }));
         setAuthorized(true);
