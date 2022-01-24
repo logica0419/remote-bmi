@@ -6,3 +6,6 @@ dsn: mariadb://root:password@localhost:3306/remote_bmi
 # Path to generate document
 # Default is `dbdoc`
 docPath: ./db_schema
+
+exclude:
+  - session

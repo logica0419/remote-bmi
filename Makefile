@@ -4,6 +4,7 @@ wire:
 
 .PHONY: tbls
 tbls:
+	@rm -rf server/docs/db_schema
 	@cd server/docs && tbls doc
 
 .PHONY: build
