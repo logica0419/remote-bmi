@@ -8,10 +8,10 @@ import (
 
 type Server struct {
 	ID           uuid.UUID `gorm:"type:char(36);not null;primaryKey"`
-	UserID       uuid.UUID `gorm:"type:char(36);not null"`
+	UserID       uuid.UUID `gorm:"type:char(36);not null;"`
 	User         User      `gorm:"foreignkey:UserID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 	ServerNumber int       `gorm:"type:int(1);not null"`
-	Address      url.URL   `gorm:"type:varchar(2048);not null"`
+	Address      url.URL   `gorm:"type:varchar(2048);not null;unique"`
 }
 
 func (Server) TableName() string {
@@ -21,7 +21,7 @@ func (Server) TableName() string {
 func (repo *Repository) SelectServersByUserID(userID uuid.UUID) ([]*Server, error) {
 	var servers []*Server
 
-	res := repo.getTx().Joins("User").Where("user_id = ?", userID).Find(&servers)
+	res := repo.getTx().Where("user_id = ?", userID).Find(&servers)
 	if res.Error != nil {
 		return nil, res.Error
 	}

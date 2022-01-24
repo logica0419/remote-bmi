@@ -61,6 +61,13 @@ func NewRouter(cfg *Config, repo *repository.Repository, db *sql.DB) (*Router, e
 		{
 			user.GET("/me", r.getUserMeHandler)
 		}
+
+		server := api.Group("/servers", checkLoginMiddleware)
+		{
+			server.GET("", r.getServersHandler)
+			server.POST("", r.postServersHandler)
+			server.PUT("server_number", r.putServersServerNumberHandler)
+		}
 	}
 
 	r.e.File("/oauth", "client/dist/index.html")
