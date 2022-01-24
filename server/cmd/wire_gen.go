@@ -21,12 +21,19 @@ func setupRouter(cfg *Config) (*router.Router, error) {
 	if err != nil {
 		return nil, err
 	}
-	routerRouter := router.NewRouter(config, repositoryRepository)
+	db, err := repository.GetDB(repositoryRepository)
+	if err != nil {
+		return nil, err
+	}
+	routerRouter, err := router.NewRouter(config, repositoryRepository, db)
+	if err != nil {
+		return nil, err
+	}
 	return routerRouter, nil
 }
 
 // wire.go:
 
 var set = wire.NewSet(
-	newRepositoryConfig, repository.NewRepository, newRouterConfig, router.NewRouter,
+	newRepositoryConfig, repository.NewRepository, repository.GetDB, newRouterConfig, router.NewRouter,
 )

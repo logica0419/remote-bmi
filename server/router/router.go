@@ -1,31 +1,48 @@
 package router
 
 import (
+	"database/sql"
 	"net/http"
 
-	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
 	"github.com/logica0419/remote-bmi/server/repository"
+	"github.com/sapphi-red/go-traq"
+	"github.com/srinathgs/mysqlstore"
 )
 
 type Router struct {
-	e          *echo.Echo
-	address    string
-	repository *repository.Repository
+	e        *echo.Echo
+	address  string
+	cli      *traq.APIClient
+	clientID string
+	repo     *repository.Repository
 }
 
 type Config struct {
-	Address string
-	Version string
+	Address  string
+	Version  string
+	ClientID string
 }
 
-func NewRouter(cfg *Config, repo *repository.Repository) *Router {
-	e := newEcho()
+func NewRouter(cfg *Config, repo *repository.Repository, db *sql.DB) (*Router, error) {
+	e, err := newEcho(db)
+	if err != nil {
+		return nil, err
+	}
 
-	api := e.Group("/api")
+	cli := traq.NewAPIClient(traq.NewConfiguration())
+	r := &Router{
+		e:        e,
+		address:  cfg.Address,
+		cli:      cli,
+		clientID: cfg.ClientID,
+		repo:     repo,
+	}
+
+	api := r.e.Group("/api")
 	{
 		api.GET("/ping", func(c echo.Context) error {
 			return c.String(http.StatusOK, "pong")
@@ -33,27 +50,33 @@ func NewRouter(cfg *Config, repo *repository.Repository) *Router {
 		api.GET("/version", func(c echo.Context) error {
 			return c.String(http.StatusOK, cfg.Version)
 		})
+
+		oauth := api.Group("/oauth")
+		{
+			oauth.GET("/callback", r.getOauthCallbackHandler)
+			oauth.POST("/code", r.postOAuthCodeHandler)
+		}
 	}
 
 	e.Static("/", "client/dist")
 
-	return &Router{
-		e:          e,
-		address:    cfg.Address,
-		repository: repo,
-	}
+	return r, nil
 }
 
-func newEcho() *echo.Echo {
+func newEcho(db *sql.DB) (*echo.Echo, error) {
 	e := echo.New()
 
 	e.Logger.SetLevel(log.DEBUG)
 	e.Logger.SetHeader("${time_rfc3339} ${prefix} ${short_file} ${line} |")
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{Format: "${time_rfc3339} method = ${method} | uri = ${uri} | status = ${status} ${error}\n"}))
 
-	e.Use(session.Middleware(sessions.NewCookieStore([]byte("secret"))))
+	store, err := mysqlstore.NewMySQLStoreFromConnection(db, "session", "/", 3600, []byte("<SecretKey>"))
+	if err != nil {
+		return nil, err
+	}
+	e.Use(session.Middleware(store))
 
-	return e
+	return e, nil
 }
 
 func (r *Router) Run() {
