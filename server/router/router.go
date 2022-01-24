@@ -56,9 +56,14 @@ func NewRouter(cfg *Config, repo *repository.Repository, db *sql.DB) (*Router, e
 			oauth.GET("/callback", r.getOauthCallbackHandler)
 			oauth.POST("/code", r.postOAuthCodeHandler)
 		}
+
+		user := api.Group("/user", checkLoginMiddleware)
+		{
+			user.GET("/me", r.getUserMeHandler)
+		}
 	}
 
-	e.Static("/", "client/dist")
+	r.e.Static("/", "client/dist")
 
 	return r, nil
 }
