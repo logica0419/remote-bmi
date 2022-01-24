@@ -1,5 +1,15 @@
+import { css } from "@emotion/react";
 import axios from "axios";
 import { useEffect, useState, VFC } from "react";
+
+const styles = {
+  container: css`
+    display: flex;
+  `,
+  bold: css`
+    font-weight: bold;
+  `,
+};
 
 const VersionDisplay: VFC = () => {
   const [version, setVersion] = useState("loading...");
@@ -16,7 +26,12 @@ const VersionDisplay: VFC = () => {
       });
   }, []);
 
-  return <>ISUCON version: {version}</>;
+  return (
+    <div css={styles.container}>
+      ISUCON version:&nbsp;
+      <div css={styles.bold}>{version}</div>
+    </div>
+  );
 };
 
 export default VersionDisplay;
