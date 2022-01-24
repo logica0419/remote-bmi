@@ -49,7 +49,7 @@ func NewRouter(cfg *Config, repo *repository.Repository, db *sql.DB) (*Router, e
 		})
 		api.GET("/version", func(c echo.Context) error {
 			return c.String(http.StatusOK, cfg.Version)
-		})
+		}, checkLoginMiddleware)
 
 		oauth := api.Group("/oauth")
 		{
