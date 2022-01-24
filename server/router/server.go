@@ -44,18 +44,27 @@ type postServersRequest struct {
 	Address      string `json:"address,omitempty"`
 }
 
+type postServersResponse struct {
+	ID           uuid.UUID `json:"id,omitempty"`
+	ServerNumber int       `json:"server_number,omitempty"`
+	Address      url.URL   `json:"address,omitempty"`
+}
+
 func (r *Router) postServersHandler(c echo.Context) error {
 	req := []postServersRequest{}
 	err := c.Bind(&req)
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
+	if len(req) > 3 {
+		return c.String(http.StatusBadRequest, "too many servers")
+	}
 
 	sess, _ := session.Get("session", c)
 	userUUID, _ := uuid.FromString(sess.Values["user_id"].(string))
 
 	servers := []*repository.Server{}
-	serverNumberUsedMap := map[int]bool{}
+	serverNumberUsed := map[int]bool{}
 	for _, v := range req {
 		id, err := uuid.NewV4()
 		if err != nil {
@@ -67,10 +76,10 @@ func (r *Router) postServersHandler(c echo.Context) error {
 			return c.String(http.StatusBadRequest, err.Error())
 		}
 
-		if _, ok := serverNumberUsedMap[v.ServerNumber]; ok {
+		if _, ok := serverNumberUsed[v.ServerNumber]; ok {
 			return c.String(http.StatusBadRequest, "server_number is duplicated")
 		}
-		serverNumberUsedMap[v.ServerNumber] = true
+		serverNumberUsed[v.ServerNumber] = true
 
 		servers = append(servers, &repository.Server{
 			ID:           id,
@@ -84,7 +93,16 @@ func (r *Router) postServersHandler(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusCreated, servers)
+	res := []postServersResponse{}
+	for _, v := range servers {
+		res = append(res, postServersResponse{
+			ID:           v.ID,
+			ServerNumber: v.ServerNumber,
+			Address:      v.Address,
+		})
+	}
+
+	return c.JSON(http.StatusCreated, res)
 }
 
 func (r *Router) putServersServerNumberHandler(c echo.Context) error {
