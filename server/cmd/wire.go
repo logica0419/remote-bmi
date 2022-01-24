@@ -12,7 +12,7 @@ import (
 var set = wire.NewSet(
 	newRepositoryConfig,
 	repository.NewRepository,
-	repository.GetDB,
+	repository.GetSqlDB,
 
 	newRouterConfig,
 	router.NewRouter,

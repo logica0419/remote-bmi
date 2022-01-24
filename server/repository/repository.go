@@ -70,7 +70,7 @@ func newDBConnection(c *Config) (*gorm.DB, error) {
 	return db, nil
 }
 
-func GetDB(repo *Repository) (*sql.DB, error) {
+func GetSqlDB(repo *Repository) (*sql.DB, error) {
 	return repo.db.DB()
 }
 

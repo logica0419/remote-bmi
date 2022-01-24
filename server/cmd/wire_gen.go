@@ -21,7 +21,7 @@ func setupRouter(cfg *Config) (*router.Router, error) {
 	if err != nil {
 		return nil, err
 	}
-	db, err := repository.GetDB(repositoryRepository)
+	db, err := repository.GetSqlDB(repositoryRepository)
 	if err != nil {
 		return nil, err
 	}
@@ -35,5 +35,5 @@ func setupRouter(cfg *Config) (*router.Router, error) {
 // wire.go:
 
 var set = wire.NewSet(
-	newRepositoryConfig, repository.NewRepository, repository.GetDB, newRouterConfig, router.NewRouter,
+	newRepositoryConfig, repository.NewRepository, repository.GetSqlDB, newRouterConfig, router.NewRouter,
 )
