@@ -1,9 +1,9 @@
 import { useEffect, VFC } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import App from "./components/App";
-import Login from "./components/Login";
-import OAuth from "./components/OAuth";
-import { useLoginCheck } from "./utils/login";
+import App from "../components/App";
+import Login from "../components/Auth/Login";
+import OAuth from "../components/Auth/OAuth";
+import { useLoginCheck } from "./login";
 
 const Router: VFC = () => {
   const { authorized, checkCompleted, fetchLoginStatus } = useLoginCheck();

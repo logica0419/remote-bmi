@@ -13,10 +13,6 @@ const GlobalStyle: VFC = () => {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
         }
-        button {
-          border-width: calc(1.5px + 0.3vmin);
-          font-size: calc(10px + 2vmin);
-        }
       `}
     />
   );

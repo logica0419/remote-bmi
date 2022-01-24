@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch, setMe } from "../store";
+import { AppDispatch, setMe } from "./store";
 
 interface GetMeResponse {
   id: string;

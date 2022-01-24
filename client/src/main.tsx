@@ -3,8 +3,8 @@ import { StrictMode } from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import Router from "./router";
-import { store } from "./store";
+import Router from "./utils/router";
+import { store } from "./utils/store";
 import GlobalStyle from "./style";
 
 const style = {
@@ -12,10 +12,10 @@ const style = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
+    margin-top: 5vh;
     color: #000000;
-    min-height: 100vh;
+    min-height: 95vh;
     font-size: calc(5px + 2vmin);
   `,
   title: css`
@@ -24,7 +24,7 @@ const style = {
   `,
   line: css`
     margin: 1em 0;
-    width: 70vw;
+    width: 90vw;
     height: 1px;
     background: #000000;
   `,
