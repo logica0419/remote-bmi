@@ -1,10 +1,14 @@
-import { css } from "@emotion/react";
 import { VFC } from "react";
+import MeDisplay from "./Me";
 import VersionDisplay from "./Version";
 
 const App: VFC = () => {
   return (
-  <VersionDisplay />)
+    <>
+      <MeDisplay />
+      <VersionDisplay />
+    </>
+  );
 };
 
 export default App;

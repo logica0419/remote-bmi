@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import axios from "axios";
 import { Dispatch, VFC } from "react";
 import { SetStateAction, useEffect } from "react";
@@ -22,6 +21,7 @@ const OAuth: VFC<Props> = ({ setAuthorized }) => {
       })
       .catch(() => {
         alert("failed to get Access Token");
+        return;
       });
   }, []);
 

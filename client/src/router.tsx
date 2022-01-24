@@ -1,19 +1,31 @@
 import axios from "axios";
 import { useEffect, useState, VFC } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import App from "./components/App";
 import Login from "./components/Login";
 import OAuth from "./components/OAuth";
+import { AppDispatch, setMe } from "./store";
+
+interface GetMeResponse {
+  id: string;
+  name: string;
+}
 
 const Router: VFC = () => {
   const [authorized, setAuthorized] = useState(false);
+
   const CheckLogin: VFC = () => {
     const [checkComplete, setCheckComplete] = useState(false);
 
+    const dispatch = useDispatch<AppDispatch>();
+
     useEffect(() => {
       axios
-        .get("/api/user/me")
-        .then(() => {
+        .get<GetMeResponse>("/api/user/me")
+        .then(({ data }) => {
+          dispatch(setMe({ id: data.id, name: data.name }));
+
           setAuthorized(true);
         })
         .catch(() => {
