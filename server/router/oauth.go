@@ -55,11 +55,15 @@ func (r *Router) postOAuthCodeHandler(c echo.Context) error {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
 
-	verifier := sess.Values["verifier"].(string)
+	verifier := sess.Values["verifier"]
+	if verifier == nil {
+		return c.String(http.StatusBadRequest, "verifier is not found")
+	}
+	verifierStr := verifier.(string)
 	opts := &traq.Oauth2ApiPostOAuth2TokenOpts{
 		Code:         optional.NewString(code),
 		ClientId:     optional.NewString(r.clientID),
-		CodeVerifier: optional.NewString(verifier),
+		CodeVerifier: optional.NewString(verifierStr),
 	}
 	token, res, err := r.cli.Oauth2Api.PostOAuth2Token(context.Background(), "authorization_code", opts)
 	if err != nil || token.AccessToken == "" || res.StatusCode >= 400 {

@@ -1,27 +1,32 @@
 import axios from "axios";
-import { Dispatch, VFC } from "react";
-import { SetStateAction, useEffect } from "react";
+import { VFC } from "react";
+import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface Props {
-  setAuthorized: Dispatch<SetStateAction<boolean>>;
+  fetchLoginStatus: () => Promise<void>;
 }
 
-const OAuth: VFC<Props> = ({ setAuthorized }) => {
+const OAuth: VFC<Props> = ({ fetchLoginStatus }) => {
   const [searchParams] = useSearchParams();
   const code = searchParams.get("code");
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!code) {
+      navigate("/");
+      return;
+    }
+
     axios
       .post("/api/oauth/code", code)
-      .then(({}) => {
-        setAuthorized(true);
+      .then(async () => {
+        await fetchLoginStatus();
         navigate("/");
       })
       .catch(() => {
         alert("failed to get Access Token");
-        return;
+        navigate("/");
       });
   }, []);
 
