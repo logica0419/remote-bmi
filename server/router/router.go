@@ -63,6 +63,7 @@ func NewRouter(cfg *Config, repo *repository.Repository, db *sql.DB) (*Router, e
 		}
 	}
 
+	r.e.File("/oauth", "client/dist/index.html")
 	r.e.Static("/", "client/dist")
 
 	return r, nil

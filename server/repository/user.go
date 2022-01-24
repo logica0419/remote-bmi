@@ -14,7 +14,7 @@ func (User) TableName() string {
 func (repo *Repository) SelectUserByID(userID uuid.UUID) (*User, error) {
 	var user *User
 
-	res := repo.getTx().First(user, "id = ?", userID)
+	res := repo.getTx().First(&user, "id = ?", userID)
 	if res.Error != nil {
 		return nil, res.Error
 	}

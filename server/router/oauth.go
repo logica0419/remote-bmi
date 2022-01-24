@@ -1,6 +1,7 @@
 package router
 
 import (
+	"bytes"
 	"context"
 	"crypto/sha256"
 	"encoding/base64"
@@ -41,10 +42,13 @@ func (r *Router) getOauthCallbackHandler(c echo.Context) error {
 }
 
 func (r *Router) postOAuthCodeHandler(c echo.Context) error {
-	var code string
-	if err := c.Bind(&code); err != nil {
-		return c.String(http.StatusBadRequest, err.Error())
+	body := new(bytes.Buffer)
+	_, err := body.ReadFrom(c.Request().Body)
+	defer c.Request().Body.Close()
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
+	code := body.String()
 
 	sess, err := session.Get("session", c)
 	if err != nil {
@@ -82,7 +86,7 @@ func (r *Router) postOAuthCodeHandler(c echo.Context) error {
 	}
 
 	sess = sessions.NewSession(sess.Store(), "session")
-	sess.Values["user_id"] = meUUID
+	sess.Values["user_id"] = me.Id
 	sess.Options = &sessions.Options{
 		Path:     "/",
 		MaxAge:   int(token.ExpiresIn),
