@@ -2,9 +2,9 @@ import { css } from "@emotion/react";
 import axios from "axios";
 import { useEffect, useState, VFC } from "react";
 import { PostServersRequest, Server } from "../../../utils/types";
-import RegisterForm from "./Register";
-import ServerList from "./List";
-import EditForm from "./Edit";
+import RegisterForm from "./RegisterForm";
+import ServerList from "./ServerList";
+import EditForm from "./EditForm";
 import ConfirmModal from "./ConfirmModal";
 
 const styles = {
