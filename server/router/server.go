@@ -12,7 +12,7 @@ import (
 	"github.com/logica0419/remote-bmi/server/repository"
 )
 
-type getServersResponse struct {
+type serversResponse struct {
 	ID           uuid.UUID `json:"id,omitempty"`
 	ServerNumber int       `json:"server_number,omitempty"`
 	Address      url.URL   `json:"address,omitempty"`
@@ -27,9 +27,9 @@ func (r *Router) getServersHandler(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	res := []getServersResponse{}
+	res := []serversResponse{}
 	for _, v := range servers {
-		res = append(res, getServersResponse{
+		res = append(res, serversResponse{
 			ID:           v.ID,
 			ServerNumber: v.ServerNumber,
 			Address:      v.Address,
@@ -42,12 +42,6 @@ func (r *Router) getServersHandler(c echo.Context) error {
 type postServersRequest struct {
 	ServerNumber int    `json:"server_number,omitempty"`
 	Address      string `json:"address,omitempty"`
-}
-
-type postServersResponse struct {
-	ID           uuid.UUID `json:"id,omitempty"`
-	ServerNumber int       `json:"server_number,omitempty"`
-	Address      url.URL   `json:"address,omitempty"`
 }
 
 func (r *Router) postServersHandler(c echo.Context) error {
@@ -93,9 +87,9 @@ func (r *Router) postServersHandler(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	res := []postServersResponse{}
+	res := []serversResponse{}
 	for _, v := range servers {
-		res = append(res, postServersResponse{
+		res = append(res, serversResponse{
 			ID:           v.ID,
 			ServerNumber: v.ServerNumber,
 			Address:      v.Address,
