@@ -13,18 +13,17 @@ const style = {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-top: 5vh;
     color: #000000;
     min-height: 95vh;
-    font-size: calc(5px + 2vmin);
+    font-size: min(25px, calc(5px + 2vw));
   `,
   title: css`
-    font-size: calc(10px + 2vmin);
-    line-height: calc(15px + 2vmin);
+    font-size: min(30px, calc(10px + 2vw));
+    line-height: min(35px, calc(15px + 2vw));
   `,
   line: css`
     margin: 1em 0;
-    width: 90vw;
+    width: max(400px, 90vw);
     height: 1px;
     background: #000000;
   `,
