@@ -6,7 +6,7 @@ import OAuth from "../components/Auth/OAuth";
 import { useLoginCheck } from "./login";
 
 const Router: VFC = () => {
-  const { authorized, checkCompleted, fetchLoginStatus } = useLoginCheck();
+  const { authorized, isFetching, fetchLoginStatus } = useLoginCheck();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,9 +24,9 @@ const Router: VFC = () => {
           <Route path="/" element={<App />} />
           <Route path="/*" element={<h2>Not Found</h2>} />
         </>
-      ) : checkCompleted ? (
+      ) : isFetching ? (
         <>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<h2>Checking User Status...</h2>} />
           <Route
             path="/*"
             element={() => {
@@ -36,7 +36,7 @@ const Router: VFC = () => {
         </>
       ) : (
         <>
-          <Route path="/" element={<h2>Checking User Status...</h2>} />
+          <Route path="/" element={<Login />} />
           <Route
             path="/*"
             element={() => {

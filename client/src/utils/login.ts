@@ -6,12 +6,12 @@ import { GetMeResponse } from "./types";
 
 export const useLoginCheck = () => {
   const [authorized, setAuthorized] = useState(false);
-  const [checkCompleted, setCheckCompleted] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
 
   const dispatch = useDispatch<AppDispatch>();
 
   const fetchLoginStatus = async () => {
-    setCheckCompleted(false);
+    setIsFetching(true);
 
     await axios
       .get<GetMeResponse>("/api/users/me")
@@ -19,10 +19,12 @@ export const useLoginCheck = () => {
         dispatch(setMe({ id: data.id, name: data.name }));
         setAuthorized(true);
       })
-      .catch(() => {});
+      .catch(() => {
+        setAuthorized(false);
+      });
 
-    setCheckCompleted(true);
+    setIsFetching(false);
   };
 
-  return { authorized, checkCompleted, fetchLoginStatus };
+  return { authorized, isFetching, fetchLoginStatus };
 };
