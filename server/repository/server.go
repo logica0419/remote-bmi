@@ -21,7 +21,7 @@ func (Server) TableName() string {
 func (repo *Repository) SelectServersByUserID(userID uuid.UUID) ([]*Server, error) {
 	var servers []*Server
 
-	res := repo.getTx().Where("user_id = ?", userID).Find(&servers)
+	res := repo.getTx().Where("user_id = ?", userID).Find(&servers).Order("server_number")
 	if res.Error != nil {
 		return nil, res.Error
 	}
