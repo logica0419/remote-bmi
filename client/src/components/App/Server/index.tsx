@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import axios from "axios";
-import { useEffect, useState, VFC, MouseEvent } from "react";
+import { useEffect, useState, VFC } from "react";
 import { PostServersRequest, Server } from "../../../utils/types";
 import RegisterForm from "./Register";
 import ServerList from "./List";
