@@ -15,7 +15,7 @@ import (
 type serversResponse struct {
 	ID           uuid.UUID `json:"id,omitempty"`
 	ServerNumber int       `json:"server_number,omitempty"`
-	Address      url.URL   `json:"address,omitempty"`
+	Address      string    `json:"address,omitempty"`
 }
 
 func (r *Router) getServersHandler(c echo.Context) error {
@@ -65,7 +65,7 @@ func (r *Router) postServersHandler(c echo.Context) error {
 			return c.String(http.StatusInternalServerError, err.Error())
 		}
 
-		address, err := url.Parse(v.Address)
+		_, err = url.Parse(v.Address)
 		if err != nil {
 			return c.String(http.StatusBadRequest, err.Error())
 		}
@@ -79,7 +79,7 @@ func (r *Router) postServersHandler(c echo.Context) error {
 			ID:           id,
 			UserID:       userUUID,
 			ServerNumber: v.ServerNumber,
-			Address:      *address,
+			Address:      v.Address,
 		})
 	}
 
@@ -106,8 +106,8 @@ func (r *Router) putServersServerNumberHandler(c echo.Context) error {
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
-	addressStr := body.String()
-	address, err := url.Parse(addressStr)
+	address := body.String()
+	_, err = url.Parse(address)
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
@@ -121,7 +121,7 @@ func (r *Router) putServersServerNumberHandler(c echo.Context) error {
 	sess, _ := session.Get("session", c)
 	userUUID, _ := uuid.FromString(sess.Values["user_id"].(string))
 
-	err = r.repo.UpdateServerAddress(userUUID, serverNumber, *address)
+	err = r.repo.UpdateServerAddress(userUUID, serverNumber, address)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
