@@ -76,9 +76,7 @@ const ServerContainer: VFC = () => {
     let newServers: PostServersRequest[] = [];
 
     for (const editingServer of editingServers) {
-      if (!editingServer.address) {
-        break;
-      }
+      if (!editingServer.address) break;
 
       newServers.push({
         server_number: editingServer.server_number,
