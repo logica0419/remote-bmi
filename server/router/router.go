@@ -68,6 +68,7 @@ func NewRouter(cfg *Config, repo *repository.Repository, db *sql.DB) (*Router, e
 			server.GET("", r.getServersHandler)
 			server.POST("", r.postServersHandler)
 			server.PUT("/:server_number", r.putServersServerNumberHandler)
+			server.DELETE("", r.deleteServersHandler)
 		}
 	}
 

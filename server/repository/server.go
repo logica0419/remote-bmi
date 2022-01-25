@@ -44,3 +44,12 @@ func (repo *Repository) UpdateServerAddress(userID uuid.UUID, serverNumber int, 
 
 	return nil
 }
+
+func (repo *Repository) DeleteServersByUserID(userID uuid.UUID) error {
+	res := repo.getTx().Where("user_id = ?", userID).Delete(&Server{})
+	if res.Error != nil {
+		return res.Error
+	}
+
+	return nil
+}

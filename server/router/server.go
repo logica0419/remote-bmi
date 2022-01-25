@@ -128,3 +128,15 @@ func (r *Router) putServersServerNumberHandler(c echo.Context) error {
 
 	return c.NoContent(http.StatusOK)
 }
+
+func (r *Router) deleteServersHandler(c echo.Context) error {
+	sess, _ := session.Get("session", c)
+	userUUID, _ := uuid.FromString(sess.Values["user_id"].(string))
+
+	err := r.repo.DeleteServersByUserID(userUUID)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.NoContent(http.StatusOK)
+}
