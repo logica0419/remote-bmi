@@ -16,8 +16,7 @@ const styles = {
     border: solid 1px;
   `,
   input: css`
-    font-size: min(25px, calc(5px + 2vw));
-    margin: 0.1em 0;
+    font-size: min(20px, calc(2vw));
   `,
 };
 
@@ -49,7 +48,7 @@ const RegisterForm: VFC<Props> = ({ editingServers, setEditingServers }) => {
         <tbody>
           {editingServers.map((editingServer: Server) => {
             return (
-              <tr>
+              <tr key={editingServer.server_number}>
                 <td css={styles.td}>{editingServer.server_number}</td>
                 <td css={styles.td}>
                   <input
