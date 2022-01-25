@@ -4,6 +4,7 @@ import { useEffect, useState, VFC } from "react";
 import { PostServersRequest, Server } from "../../../utils/types";
 import RegisterForm from "./Register";
 import ServerList from "./List";
+import EditForm from "./Edit";
 
 const styles = {
   container: css`
@@ -52,6 +53,7 @@ const ServerContainer: VFC = () => {
   }, []);
 
   const startEdit = () => {
+    setEditingServers(servers);
     setIsEditing(true);
   };
 
@@ -124,7 +126,15 @@ const ServerContainer: VFC = () => {
             </button>
           </>
         ) : (
-          <></>
+          <>
+            <EditForm
+              editingServers={editingServers}
+              setEditingServers={setEditingServers}
+            />
+            <button css={styles.button("#fcb0b0")} onClick={finishEdit}>
+              Quit
+            </button>
+          </>
         )
       ) : isFetching ? (
         <h2>Loading Servers...</h2>

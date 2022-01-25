@@ -24,20 +24,24 @@ interface Props {
 const ServerList: VFC<Props> = ({ servers }) => {
   return (
     <table css={styles.table}>
-      <tr>
-        <th css={styles.th}>Number</th>
-        <th css={styles.th}>Private Address</th>
-        <th css={styles.th}>BenchMark</th>
-      </tr>
-      {servers.map((server: Server) => {
-        return (
-          <tr>
-            <td css={styles.td}>{server.server_number}</td>
-            <td css={styles.td}>{server.address}</td>
-            <td css={styles.td}></td>
-          </tr>
-        );
-      })}
+      <thead>
+        <tr>
+          <th css={styles.th}>Number</th>
+          <th css={styles.th}>Private Address</th>
+          <th css={styles.th}>BenchMark</th>
+        </tr>
+      </thead>
+      <tbody>
+        {servers.map((server: Server) => {
+          return (
+            <tr key={server.server_number}>
+              <td css={styles.td}>{server.server_number}</td>
+              <td css={styles.td}>{server.address}</td>
+              <td css={styles.td}></td>
+            </tr>
+          );
+        })}
+      </tbody>
     </table>
   );
 };
