@@ -108,7 +108,7 @@ const EditForm: VFC<Props> = ({ editingServers, setEditingServers }) => {
                   name={(editingServer.server_number - 1).toString(10)}
                   onSubmit={onSubmit}>
                   <input
-                    css={styles.button("#e0e0e0")}
+                    css={styles.button("#bce4c9")}
                     type="submit"
                     value="Update"
                   />
