@@ -2,11 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch, setMe } from "./store";
-
-interface GetMeResponse {
-  id: string;
-  name: string;
-}
+import { GetMeResponse } from "./types";
 
 export const useLoginCheck = () => {
   const [authorized, setAuthorized] = useState(false);

@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { Fragment, VFC } from "react";
+import { VFC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../utils/store";
 
