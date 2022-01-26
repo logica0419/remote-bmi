@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, VFC } from "react";
 
 const styles = {
   background: css`
+    z-index: 1;
     background-color: #000000;
     opacity: 0.5;
     width: 100vw;
@@ -10,6 +11,7 @@ const styles = {
     position: absolute;
   `,
   modal: css`
+    z-index: 2;
     background-color: #ffffff;
     width: 400px;
     height: 200px;

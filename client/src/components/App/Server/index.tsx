@@ -16,7 +16,7 @@ const styles = {
   title: css`
     line-height: min(10px, calc(2vw - 10px));
   `,
-  button: (color: string, isConfirming?: boolean) => {
+  button: (color: string) => {
     return css`
       margin: 0.5em 0.2em 0;
       font-size: min(25px, calc(5px + 2vw));
@@ -25,7 +25,7 @@ const styles = {
       padding: 0.3em 0.5em;
       background: ${color};
       :hover {
-        ${!isConfirming && "opacity: 0.6;"}
+        opacity: 0.6;
         cursor: pointer;
       }
     `;
@@ -89,8 +89,8 @@ const ServerContainer: VFC = () => {
       return;
     }
 
-    setIsEditing(false);
     setIsFetching(true);
+    setIsEditing(false);
 
     axios
       .post<Server[]>("/api/servers", newServers)
@@ -174,9 +174,7 @@ const ServerContainer: VFC = () => {
             <button css={styles.button("#e0e0e0")} onClick={startEdit}>
               Edit
             </button>
-            <button
-              css={styles.button("#fcb0b0", isConfirming)}
-              onClick={onConfirm}>
+            <button css={styles.button("#fcb0b0")} onClick={onConfirm}>
               Reset Servers
             </button>
           </>
