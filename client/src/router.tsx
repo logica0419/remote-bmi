@@ -1,9 +1,9 @@
 import { useEffect, VFC } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import App from "../components/App";
-import Login from "../components/Auth/Login";
-import OAuth from "../components/Auth/OAuth";
-import { useLoginCheck } from "./login";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import OAuth from "./components/OAuth";
+import { useLoginCheck } from "./utils/login";
 
 const Router: VFC = () => {
   const { authorized, isFetching, fetchLoginStatus } = useLoginCheck();
@@ -21,7 +21,7 @@ const Router: VFC = () => {
       />
       {authorized ? (
         <>
-          <Route path="/" element={<App />} />
+          <Route path="/" element={<Home />} />
           <Route path="/*" element={<h2>Not Found</h2>} />
         </>
       ) : isFetching ? (

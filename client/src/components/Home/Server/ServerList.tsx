@@ -28,7 +28,6 @@ const ServerList: VFC<Props> = ({ servers }) => {
         <tr>
           <th css={styles.th}>Number</th>
           <th css={styles.th}>Private Address</th>
-          <th css={styles.th}>BenchMark</th>
         </tr>
       </thead>
       <tbody>
@@ -37,7 +36,6 @@ const ServerList: VFC<Props> = ({ servers }) => {
             <tr key={server.server_number}>
               <td css={styles.td}>{server.server_number}</td>
               <td css={styles.td}>{server.address}</td>
-              <td css={styles.td}></td>
             </tr>
           );
         })}

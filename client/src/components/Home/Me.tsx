@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { VFC } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../utils/store";
+import { RootState } from "../../store";
 
 const styles = {
   container: css`

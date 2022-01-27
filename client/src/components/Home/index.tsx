@@ -3,7 +3,7 @@ import MeDisplay from "./Me";
 import ServerContainer from "./Server";
 import VersionDisplay from "./Version";
 
-const App: VFC = () => {
+const Home: VFC = () => {
   return (
     <>
       <MeDisplay />
@@ -13,4 +13,4 @@ const App: VFC = () => {
   );
 };
 
-export default App;
+export default Home;

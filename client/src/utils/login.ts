@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch, setMe } from "./store";
+import { AppDispatch } from "../store";
+import { setMe } from "../store/me";
 import { GetMeResponse } from "./types";
 
 export const useLoginCheck = () => {
