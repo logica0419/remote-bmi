@@ -9,6 +9,11 @@ export interface Server {
   address: string;
 }
 
+export interface EditServer {
+  id: string;
+  address: string;
+}
+
 export interface PostServersRequest {
   server_number: number;
   address: string;

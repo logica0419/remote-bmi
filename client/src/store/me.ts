@@ -11,8 +11,7 @@ export const meSlice = createSlice({
   initialState: initialMeState,
   reducers: {
     setMe: (state, action: PayloadAction<Me>) => {
-      state.id = action.payload.id;
-      state.name = action.payload.name;
+      state = action.payload;
     },
   },
 });
