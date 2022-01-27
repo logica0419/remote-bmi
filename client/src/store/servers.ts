@@ -4,11 +4,12 @@ import { EditServer, Server } from "../utils/types";
 const initialServersState: Server[] = [];
 
 export const serversSlice = createSlice({
-  name: "server",
+  name: "servers",
   initialState: initialServersState,
   reducers: {
     registerServers: (state, action: PayloadAction<Server[]>) => {
-      state = action.payload;
+      state.length = 0;
+      state.push(...action.payload);
     },
     editServer: (state, action: PayloadAction<EditServer>) => {
       const { id, address } = action.payload;
@@ -18,7 +19,7 @@ export const serversSlice = createSlice({
       }
     },
     deleteServers: (state) => {
-      state = [];
+      state.length = 0;
     },
   },
 });
