@@ -6,6 +6,9 @@ import RegisterForm from "./RegisterForm";
 import ServerList from "./ServerList";
 import EditForm from "./EditForm";
 import ConfirmModal from "./ConfirmModal";
+import { AppDispatch, RootState } from "../../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteServers, registerServers } from "../../../store/servers";
 
 const styles = {
   container: css`
@@ -35,27 +38,41 @@ const styles = {
 const ServerContainer: VFC = () => {
   const [isFetching, setIsFetching] = useState(true);
   const [editingServers, setEditingServers] = useState<Server[]>([]);
-  const [servers, setServers] = useState<Server[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
 
+  const servers = useSelector((state: RootState) => state.servers);
+  const dispatch = useDispatch<AppDispatch>();
+
   useEffect(() => {
+    fetchServers();
+  }, []);
+
+  const fetchServers = () => {
     setIsFetching(true);
 
     axios
       .get<Server[]>("/api/servers")
       .then(({ data }) => {
-        setServers(data);
-        setIsFetching(false);
+        dispatch(registerServers(data));
       })
       .catch(() => {
-        setServers([]);
-        setIsFetching(false);
+        dispatch(deleteServers());
       });
-  }, []);
+
+    setIsFetching(false);
+  };
 
   const startEdit = () => {
-    setEditingServers(servers);
+    let newServers: Server[] = [];
+    for (let i = 0; i < servers.length; i++) {
+      newServers.push({
+        id: servers[i].id,
+        server_number: servers[i].server_number,
+        address: servers[i].address,
+      });
+    }
+    setEditingServers(newServers);
     setIsEditing(true);
   };
 
@@ -95,7 +112,7 @@ const ServerContainer: VFC = () => {
     axios
       .post<Server[]>("/api/servers", newServers)
       .then(({ data }) => {
-        setServers(data);
+        dispatch(registerServers(data));
       })
       .catch(() => {
         alert("サーバー設定の作成に失敗しました");
@@ -110,7 +127,7 @@ const ServerContainer: VFC = () => {
     axios
       .delete("/api/servers")
       .then(() => {
-        setServers([]);
+        dispatch(deleteServers());
       })
       .catch(() => {
         alert("サーバー設定の削除に失敗しました");

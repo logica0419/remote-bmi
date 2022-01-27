@@ -8,6 +8,9 @@ import {
   FormEvent,
   useState,
 } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store";
+import { editServer } from "../../../store/servers";
 import { Server } from "../../../utils/types";
 
 const styles = {
@@ -49,6 +52,8 @@ interface Props {
 const EditForm: VFC<Props> = ({ editingServers, setEditingServers }) => {
   const [isEdited] = useState(new Map<number, boolean>());
 
+  const dispatch = useDispatch<AppDispatch>();
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
     const value = target.value;
@@ -74,6 +79,12 @@ const EditForm: VFC<Props> = ({ editingServers, setEditingServers }) => {
       .then(() => {
         alert("正常にアドレスがアップデートされました");
         isEdited.delete(index);
+        dispatch(
+          editServer({
+            id: editingServers[index].id,
+            address: editingServers[index].address,
+          })
+        );
       })
       .catch(() => {
         alert("アップデートに失敗しました");
