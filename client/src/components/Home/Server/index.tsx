@@ -13,7 +13,7 @@ import { deleteServers, registerServers } from "../../../store/servers";
 const styles = {
   container: css`
     margin-top: 1em;
-    max-height: min(500px, calc(20vw + 100px));
+    min-height: min(290px, calc(20vw + 90px));
     align-items: center;
   `,
   title: css`
