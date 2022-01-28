@@ -12,6 +12,10 @@ var serveCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Run Remote-BMI Server",
 	Run: func(cmd *cobra.Command, args []string) {
+		if address != "" {
+			c.Address = address
+		}
+
 		r, err := setupRouter(c)
 		if err != nil {
 			log.Panicf("failed to setup router: %v", err)
@@ -24,5 +28,5 @@ var serveCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(serveCmd)
 
-	serveCmd.Flags().StringVarP(&address, "address", "a", ":3000", "Address to listen")
+	serveCmd.Flags().StringVarP(&address, "address", "a", "", "Address to listen")
 }

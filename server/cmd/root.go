@@ -21,9 +21,6 @@ var rootCmd = &cobra.Command{
 			log.Panicf("failed to load config: %v", err)
 		}
 
-		if address != "" {
-			c.Address = address
-		}
 		if version != "" {
 			c.Version = version
 		}
@@ -32,7 +29,7 @@ var rootCmd = &cobra.Command{
 
 func init() {
 	rootCmd.PersistentFlags().StringVarP(&configFile, "config", "c", "config.json", "config file")
-	rootCmd.PersistentFlags().StringVarP(&version, "version", "v", "ISUCON-test", "running ISUCON exercise version")
+	rootCmd.PersistentFlags().StringVarP(&version, "version", "v", "", "running ISUCON exercise version")
 }
 
 func Execute() {

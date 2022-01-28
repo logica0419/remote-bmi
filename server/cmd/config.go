@@ -59,7 +59,7 @@ func loadConfig(configFile string) error {
 	viper.SetDefault("mysql.username", "isucon")
 	viper.SetDefault("mysql.password", "isucon")
 	viper.SetDefault("mysql.database", "Remote-BMI")
-	viper.SetDefault("version", "")
+	viper.SetDefault("version", "isucon-test")
 
 	viper.AutomaticEnv()
 
