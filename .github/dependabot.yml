@@ -14,3 +14,8 @@ updates:
     directory: "/client" # Location of package manifests
     schedule:
       interval: "monthly"
+
+  - package-ecosystem: "github-actions" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
