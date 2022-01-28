@@ -4,6 +4,7 @@ import { useState, VFC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { PostBenchmarkResponse } from "../../../utils/types";
+import Loading from "./Loading";
 import Selector from "./Selector";
 
 const styles = {
@@ -31,42 +32,50 @@ const styles = {
 };
 
 const Benchmark: VFC = () => {
+  const [serverNumber, setServerNumber] = useState(1);
+  const [isBenchmarking, setIsBenchmarking] = useState(false);
+
   const servers = useSelector((state: RootState) => state.servers);
 
-  const [serverNumber, setServerNumber] = useState(1);
+  const onBenchmark = async () => {
+    setIsBenchmarking(true);
 
-  const onBenchmark = () => {
-    axios
+    await axios
       .post<PostBenchmarkResponse>("/api/benchmark", {
         server_number: serverNumber,
       })
       .then(({ data }) => {
         console.log(data);
       })
-      .catch((err) => {
-        alert("benchmark failed");
+      .catch(() => {
+        alert("ベンチマークに失敗しました");
       });
+
+    setIsBenchmarking(false);
   };
 
   return (
-    <div css={styles.container}>
-      <h2 css={styles.title}>Benchmark</h2>
-      {servers.length ? (
-        <>
-          Server:&nbsp;
-          <Selector
-            serverNumber={serverNumber}
-            setServerNumber={setServerNumber}
-          />
-          &nbsp;
-          <button css={styles.button("#bce4c9")} onClick={onBenchmark}>
-            Benchmark
-          </button>
-        </>
-      ) : (
-        "Currently Unavailable"
-      )}
-    </div>
+    <>
+      {isBenchmarking && <Loading />}
+      <div css={styles.container}>
+        <h2 css={styles.title}>Benchmark</h2>
+        {servers.length ? (
+          <>
+            Server:&nbsp;
+            <Selector
+              serverNumber={serverNumber}
+              setServerNumber={setServerNumber}
+            />
+            &nbsp;
+            <button css={styles.button("#bce4c9")} onClick={onBenchmark}>
+              Benchmark
+            </button>
+          </>
+        ) : (
+          "Currently Unavailable"
+        )}
+      </div>
+    </>
   );
 };
 
