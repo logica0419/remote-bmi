@@ -74,10 +74,7 @@ func NewRouter(cfg *Config, repo *repository.Repository, bench *benchmark.Benchm
 			server.DELETE("", r.deleteServersHandler)
 		}
 
-		benchmark := api.Group("/benchmarks", checkLoginMiddleware)
-		{
-			benchmark.POST("", r.postBenchmarkHandler)
-		}
+		api.POST("/benchmark", r.postBenchmarkHandler, checkLoginMiddleware)
 	}
 
 	r.e.File("/oauth", "client/dist/index.html")
