@@ -75,6 +75,8 @@ func NewRouter(cfg *Config, repo *repository.Repository, bench *benchmark.Benchm
 		}
 
 		api.POST("/benchmark", r.postBenchmarkHandler, checkLoginMiddleware)
+
+		api.GET("/logs", r.getLogsHandler, checkLoginMiddleware)
 	}
 
 	r.e.File("/oauth", "client/dist/index.html")
