@@ -23,3 +23,10 @@ export interface Me {
   id: string;
   name: string;
 }
+
+export interface PostBenchmarkResponse {
+  id: string;
+  server_number: number;
+  stdout: string;
+  created_at: Date;
+}
