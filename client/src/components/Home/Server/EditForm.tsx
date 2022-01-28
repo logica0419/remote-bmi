@@ -61,7 +61,7 @@ const EditForm: VFC<Props> = ({ editingServers, setEditingServers }) => {
 
     isEdited.set(index, true);
 
-    let newServers = [...editingServers];
+    const newServers = [...editingServers];
     newServers[index].address = value;
     setEditingServers(newServers);
   };

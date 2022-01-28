@@ -64,7 +64,7 @@ const ServerContainer: VFC = () => {
   };
 
   const startEdit = () => {
-    let newServers: Server[] = [];
+    const newServers: Server[] = [];
     for (let i = 0; i < servers.length; i++) {
       newServers.push({
         id: servers[i].id,
@@ -90,7 +90,7 @@ const ServerContainer: VFC = () => {
   };
 
   const registerServer = () => {
-    let newServers: PostServersRequest[] = [];
+    const newServers: PostServersRequest[] = [];
 
     for (const editingServer of editingServers) {
       if (!editingServer.address) break;
