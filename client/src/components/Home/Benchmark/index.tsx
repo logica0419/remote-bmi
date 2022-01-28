@@ -1,9 +1,10 @@
 import { css } from "@emotion/react";
 import axios from "axios";
 import { useState, VFC } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
-import { PostBenchmarkResponse } from "../../../utils/types";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store";
+import { addLog } from "../../../store/logs";
+import { Log } from "../../../utils/types";
 import Loading from "./Loading";
 import Selector from "./Selector";
 
@@ -37,17 +38,17 @@ const Benchmark: VFC = () => {
   const [isBenchmarking, setIsBenchmarking] = useState(false);
 
   const servers = useSelector((state: RootState) => state.servers);
+  const dispatch = useDispatch<AppDispatch>();
 
   const onBenchmark = async () => {
     setIsBenchmarking(true);
 
     await axios
-      .post<PostBenchmarkResponse>("/api/benchmark", {
+      .post<Log>("/api/benchmark", {
         server_number: serverNumber,
       })
       .then(({ data }) => {
-        // TODO: Implement Log Insertion
-        alert(data);
+        dispatch(addLog(data));
       })
       .catch(() => {
         alert("ベンチマークに失敗しました");
