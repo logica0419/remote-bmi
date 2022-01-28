@@ -18,7 +18,7 @@ const styles = {
     opacity: 0.5;
     width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
   `,
   modal: css`
     z-index: 2;
@@ -27,7 +27,7 @@ const styles = {
     height: 200px;
     border-radius: 20px;
     opacity: 1;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
