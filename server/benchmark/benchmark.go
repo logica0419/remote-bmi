@@ -12,7 +12,7 @@ import (
 
 type Benchmarker struct {
 	repo    *repository.Repository
-	command string
+	command command
 	sync.Mutex
 }
 
@@ -41,13 +41,15 @@ func (b *Benchmarker) Run(userID uuid.UUID, serverNumber int) (uuid.UUID, error)
 		return uuid.Nil, err
 	}
 
-	command := fmt.Sprintf(b.command, server.Address)
-	args, err := shellword.Parse(command)
+	commandStr := fmt.Sprintf(b.command.command, server.Address)
+	args, err := shellword.Parse(commandStr)
 	if err != nil {
 		return uuid.Nil, err
 	}
 
-	stdoutBinary, err := exec.Command(args[0], args[1:]...).Output()
+	cmd := exec.Command(args[0], args[1:]...)
+	cmd.Dir = b.command.workDir
+	stdoutBinary, err := cmd.Output()
 	if err != nil {
 		return uuid.Nil, err
 	}
