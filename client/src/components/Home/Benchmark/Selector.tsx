@@ -25,7 +25,9 @@ const Selector: VFC<Props> = ({ serverNumber, setServerNumber }) => {
   return (
     <select css={styles.selector} value={serverNumber} onChange={onChange}>
       {servers.map((server) => (
-        <option value={server.server_number}>{server.server_number}</option>
+        <option key={server.id} value={server.server_number}>
+          {server.server_number}
+        </option>
       ))}
     </select>
   );
