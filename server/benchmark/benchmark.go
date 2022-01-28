@@ -3,6 +3,7 @@ package benchmark
 import (
 	"fmt"
 	"os/exec"
+	"sync"
 
 	"github.com/gofrs/uuid"
 	"github.com/logica0419/remote-bmi/server/repository"
@@ -12,6 +13,7 @@ import (
 type Benchmarker struct {
 	repo    *repository.Repository
 	command string
+	sync.Mutex
 }
 
 type Config struct {
@@ -31,6 +33,9 @@ func NewBenchmarker(c *Config, repo *repository.Repository) (*Benchmarker, error
 }
 
 func (b *Benchmarker) Run(userID uuid.UUID, serverNumber int) (uuid.UUID, error) {
+	b.Lock()
+	defer b.Unlock()
+
 	server, err := b.repo.SelectServerByUserIDAndServerNumber(userID, serverNumber)
 	if err != nil {
 		return uuid.Nil, err
