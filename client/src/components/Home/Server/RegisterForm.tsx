@@ -31,7 +31,7 @@ const RegisterForm: VFC<Props> = ({ editingServers, setEditingServers }) => {
     const value = target.value;
     const name = target.name;
 
-    let newServers = [...editingServers];
+    const newServers = [...editingServers];
     newServers[Number(name)].address = value;
     setEditingServers(newServers);
   };

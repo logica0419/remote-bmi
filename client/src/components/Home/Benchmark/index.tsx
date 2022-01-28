@@ -45,7 +45,8 @@ const Benchmark: VFC = () => {
         server_number: serverNumber,
       })
       .then(({ data }) => {
-        console.log(data);
+        // TODO: Implement Log Insertion
+        alert(data);
       })
       .catch(() => {
         alert("ベンチマークに失敗しました");
