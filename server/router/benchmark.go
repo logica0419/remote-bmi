@@ -2,7 +2,6 @@ package router
 
 import (
 	"net/http"
-	"time"
 
 	"github.com/gofrs/uuid"
 	"github.com/labstack/echo-contrib/session"
@@ -11,13 +10,6 @@ import (
 
 type postBenchmarkRequest struct {
 	ServerNumber int `json:"server_number,omitempty"`
-}
-
-type postBenchmarkResponse struct {
-	ID           uuid.UUID `json:"id,omitempty"`
-	ServerNumber int       `json:"server_number,omitempty"`
-	StdOut       string    `json:"stdout,omitempty"`
-	CreatedAt    time.Time `json:"created_at,omitempty"`
 }
 
 func (r *Router) postBenchmarkHandler(c echo.Context) error {
@@ -40,9 +32,9 @@ func (r *Router) postBenchmarkHandler(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	res := postBenchmarkResponse{
+	res := getLogsResponse{
 		ID:           log.ID,
-		ServerNumber: req.ServerNumber,
+		ServerNumber: log.Server.ServerNumber,
 		StdOut:       log.StdOut,
 		CreatedAt:    log.CreatedAt,
 	}

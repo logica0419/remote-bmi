@@ -23,7 +23,7 @@ func (Log) TableName() string {
 func (repo *Repository) SelectLogByID(id uuid.UUID) (*Log, error) {
 	var log Log
 
-	res := repo.getTx().Where("id = ?", id).First(&log)
+	res := repo.getTx().Joins("Server").Where("id = ?", id).First(&log)
 	if res.Error != nil {
 		return nil, res.Error
 	}
