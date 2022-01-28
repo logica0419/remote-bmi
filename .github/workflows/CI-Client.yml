@@ -12,6 +12,7 @@ jobs:
   mod:
     name: Module Download
     runs-on: ubuntu-latest
+    working-directory: ./client
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -32,10 +33,11 @@ jobs:
         run: npm install -g npm@7
       - name: Module Download
         if: steps.mod-cache.outputs.cache-hit != 'true'
-        run: cd ./client && npm ci
+        run: npm ci
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    working-directory: ./client
     needs: [mod]
     steps:
       - name: Checkout
@@ -52,10 +54,11 @@ jobs:
           path: ./client/node_modules
           key: mod-${{ hashFiles('**/package-lock.json') }}
       - name: run lint
-        run: cd ./client && npm run lint
+        run: npm run lint
   type:
     name: Type Check
     runs-on: ubuntu-latest
+    working-directory: ./client
     needs: [mod]
     steps:
       - name: Checkout
@@ -72,10 +75,11 @@ jobs:
           path: ./client/node_modules
           key: mod-${{ hashFiles('**/package-lock.json') }}
       - name: run type-check
-        run: cd ./client && npm run type-check
+        run: npm run type-check
   build:
     name: Build
     runs-on: ubuntu-latest
+    working-directory: ./client
     needs: [mod]
     steps:
       - name: Checkout
@@ -92,6 +96,6 @@ jobs:
           path: ./client/node_modules
           key: mod-${{ hashFiles('**/package-lock.json') }}
       - name: run build
-        run: cd ./client && npm run build
+        run: npm run build
         env:
           NODE_ENV: production
