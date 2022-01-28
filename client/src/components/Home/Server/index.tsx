@@ -12,7 +12,6 @@ import { deleteServers, registerServers } from "../../../store/servers";
 
 const styles = {
   container: css`
-    margin-top: 1em;
     min-height: min(290px, calc(20vw + 90px));
     align-items: center;
   `,
