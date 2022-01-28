@@ -30,26 +30,26 @@ func NewBenchmarker(c *Config, repo *repository.Repository) (*Benchmarker, error
 	}, nil
 }
 
-func (b *Benchmarker) Run(userID uuid.UUID, serverNumber int) error {
+func (b *Benchmarker) Run(userID uuid.UUID, serverNumber int) (uuid.UUID, error) {
 	server, err := b.repo.SelectServerByUserIDAndServerNumber(userID, serverNumber)
 	if err != nil {
-		return err
+		return uuid.Nil, err
 	}
 
 	command := fmt.Sprintf(b.command, server.Address)
 	args, err := shellword.Parse(command)
 	if err != nil {
-		return err
+		return uuid.Nil, err
 	}
 
 	stdoutBinary, err := exec.Command(args[0], args[1:]...).Output()
 	if err != nil {
-		return err
+		return uuid.Nil, err
 	}
 
 	id, err := uuid.NewV4()
 	if err != nil {
-		return err
+		return uuid.Nil, err
 	}
 	stdout := string(stdoutBinary)
 	log := repository.Log{
@@ -61,8 +61,8 @@ func (b *Benchmarker) Run(userID uuid.UUID, serverNumber int) error {
 
 	err = b.repo.InsertLog(log)
 	if err != nil {
-		return err
+		return uuid.Nil, err
 	}
 
-	return nil
+	return id, nil
 }

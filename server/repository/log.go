@@ -20,6 +20,17 @@ func (Log) TableName() string {
 	return "benchmark_log"
 }
 
+func (repo *Repository) SelectLogByID(id uuid.UUID) (*Log, error) {
+	var log Log
+
+	res := repo.getTx().Where("id = ?", id).First(&log)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+
+	return &log, nil
+}
+
 func (repo *Repository) SelectLogsByUserID(userID uuid.UUID) ([]*Log, error) {
 	var logs []*Log
 
