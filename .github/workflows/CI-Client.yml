@@ -1,4 +1,4 @@
-name: CI
+name: Client CI Pipeline
 
 on:
   push:
@@ -30,13 +30,13 @@ jobs:
       - name: Install npm
         if: steps.mod-cache.outputs.cache-hit != 'true'
         run: npm install -g npm@7
-      - name: Package Download
+      - name: Module Download
         if: steps.mod-cache.outputs.cache-hit != 'true'
         run: cd ./client && npm ci
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    needs: [package]
+    needs: [mod]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -56,7 +56,7 @@ jobs:
   type:
     name: Type Check
     runs-on: ubuntu-latest
-    needs: [package]
+    needs: [mod]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -76,7 +76,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: [package]
+    needs: [mod]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
