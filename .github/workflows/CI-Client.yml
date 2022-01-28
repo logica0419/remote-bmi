@@ -8,11 +8,14 @@ on:
     branches:
       - main
 
+defaults:
+  run:
+    working-directory: client
+
 jobs:
   mod:
     name: Module Download
     runs-on: ubuntu-latest
-    working-directory: ./client
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -28,6 +31,7 @@ jobs:
         with:
           node-version: "16"
           cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Install npm
         if: steps.mod-cache.outputs.cache-hit != 'true'
         run: npm install -g npm@7
@@ -37,7 +41,6 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    working-directory: ./client
     needs: [mod]
     steps:
       - name: Checkout
@@ -47,6 +50,7 @@ jobs:
         with:
           node-version: "16"
           cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Set Mod Cache
         id: mod-cache
         uses: actions/cache@v2.1.7
@@ -58,7 +62,6 @@ jobs:
   type:
     name: Type Check
     runs-on: ubuntu-latest
-    working-directory: ./client
     needs: [mod]
     steps:
       - name: Checkout
@@ -68,6 +71,7 @@ jobs:
         with:
           node-version: "16"
           cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Set Mod Cache
         id: mod-cache
         uses: actions/cache@v2.1.7
@@ -79,7 +83,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    working-directory: ./client
     needs: [mod]
     steps:
       - name: Checkout
@@ -89,6 +92,7 @@ jobs:
         with:
           node-version: "16"
           cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Set Mod Cache
         id: mod-cache
         uses: actions/cache@v2.1.7
