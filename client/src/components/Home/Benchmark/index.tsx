@@ -10,6 +10,7 @@ import Selector from "./Selector";
 const styles = {
   container: css`
     margin-top: 1em;
+    min-height: min(130px, calc(10vw + 30px));
     align-items: center;
   `,
   title: css`
@@ -73,7 +74,7 @@ const Benchmark: VFC = () => {
             </button>
           </>
         ) : (
-          "Currently Unavailable"
+          "Please Register Servers"
         )}
       </div>
     </>
