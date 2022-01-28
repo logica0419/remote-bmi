@@ -8,6 +8,7 @@ package cmd
 
 import (
 	"github.com/google/wire"
+	"github.com/logica0419/remote-bmi/server/benchmark"
 	"github.com/logica0419/remote-bmi/server/repository"
 	"github.com/logica0419/remote-bmi/server/router"
 )
@@ -21,11 +22,16 @@ func setupRouter(cfg *Config) (*router.Router, error) {
 	if err != nil {
 		return nil, err
 	}
+	benchmarkConfig := newBenchmarkerConfig(cfg)
+	benchmarker, err := benchmark.NewBenchmarker(benchmarkConfig, repositoryRepository)
+	if err != nil {
+		return nil, err
+	}
 	db, err := repository.GetSqlDB(repositoryRepository)
 	if err != nil {
 		return nil, err
 	}
-	routerRouter, err := router.NewRouter(config, repositoryRepository, db)
+	routerRouter, err := router.NewRouter(config, repositoryRepository, benchmarker, db)
 	if err != nil {
 		return nil, err
 	}
@@ -35,5 +41,5 @@ func setupRouter(cfg *Config) (*router.Router, error) {
 // wire.go:
 
 var set = wire.NewSet(
-	newRepositoryConfig, repository.NewRepository, repository.GetSqlDB, newRouterConfig, router.NewRouter,
+	newRepositoryConfig, repository.NewRepository, repository.GetSqlDB, newBenchmarkerConfig, benchmark.NewBenchmarker, newRouterConfig, router.NewRouter,
 )

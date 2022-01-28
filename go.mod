@@ -18,6 +18,7 @@ require (
 	github.com/thanhpk/randstr v1.0.4
 	gorm.io/driver/mysql v1.2.3
 	gorm.io/gorm v1.22.5
+  github.com/mattn/go-shellwords v1.0.12
 )
 
 require (

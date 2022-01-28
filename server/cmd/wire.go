@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"github.com/google/wire"
+	"github.com/logica0419/remote-bmi/server/benchmark"
 	"github.com/logica0419/remote-bmi/server/repository"
 	"github.com/logica0419/remote-bmi/server/router"
 )
@@ -13,6 +14,9 @@ var set = wire.NewSet(
 	newRepositoryConfig,
 	repository.NewRepository,
 	repository.GetSqlDB,
+
+	newBenchmarkerConfig,
+	benchmark.NewBenchmarker,
 
 	newRouterConfig,
 	router.NewRouter,

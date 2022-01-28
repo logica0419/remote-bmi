@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/davecgh/go-spew/spew"
+	"github.com/logica0419/remote-bmi/server/benchmark"
 	"github.com/logica0419/remote-bmi/server/repository"
 	"github.com/logica0419/remote-bmi/server/router"
 	"github.com/spf13/cobra"
@@ -41,6 +42,12 @@ func newRepositoryConfig(c *Config) *repository.Config {
 		Username: c.MySQL.Username,
 		Password: c.MySQL.Password,
 		Database: c.MySQL.Database,
+	}
+}
+
+func newBenchmarkerConfig(c *Config) *benchmark.Config {
+	return &benchmark.Config{
+		Version: c.Version,
 	}
 }
 

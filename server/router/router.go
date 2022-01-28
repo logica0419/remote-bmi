@@ -8,6 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
+	"github.com/logica0419/remote-bmi/server/benchmark"
 	"github.com/logica0419/remote-bmi/server/repository"
 	"github.com/sapphi-red/go-traq"
 	"github.com/srinathgs/mysqlstore"
@@ -19,6 +20,7 @@ type Router struct {
 	cli      *traq.APIClient
 	clientID string
 	repo     *repository.Repository
+	bench    *benchmark.Benchmarker
 }
 
 type Config struct {
@@ -27,7 +29,7 @@ type Config struct {
 	ClientID string
 }
 
-func NewRouter(cfg *Config, repo *repository.Repository, db *sql.DB) (*Router, error) {
+func NewRouter(cfg *Config, repo *repository.Repository, bench *benchmark.Benchmarker, db *sql.DB) (*Router, error) {
 	e, err := newEcho(db)
 	if err != nil {
 		return nil, err
@@ -41,6 +43,7 @@ func NewRouter(cfg *Config, repo *repository.Repository, db *sql.DB) (*Router, e
 		cli:      cli,
 		clientID: cfg.ClientID,
 		repo:     repo,
+		bench:    bench,
 	}
 
 	api := r.e.Group("/api")
@@ -69,6 +72,11 @@ func NewRouter(cfg *Config, repo *repository.Repository, db *sql.DB) (*Router, e
 			server.POST("", r.postServersHandler)
 			server.PUT("/:server_number", r.putServersServerNumberHandler)
 			server.DELETE("", r.deleteServersHandler)
+		}
+
+		benchmark := api.Group("/benchmarks", checkLoginMiddleware)
+		{
+			benchmark.POST("", r.postBenchmarkHandler)
 		}
 	}
 
