@@ -24,7 +24,7 @@ export interface Me {
   name: string;
 }
 
-export interface PostBenchmarkResponse {
+export interface Log {
   id: string;
   server_number: number;
   stdout: string;
