@@ -6,6 +6,6 @@ type command struct {
 }
 
 var commands = map[string]command{
-	"isucon-test":      {workDir: ".", command: "sleep 1m && echo %s"},
+	"isucon-test":      {workDir: ".", command: "sleep 2s && echo %s"},
 	"isucon11-qualify": {workDir: "/home/isucon/bench", command: "./bench -all-addresses 127.0.0.11 -target %s -tls -jia-service-url http://127.0.0.1:4999"},
 }
