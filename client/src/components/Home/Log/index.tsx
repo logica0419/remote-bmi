@@ -50,7 +50,7 @@ const styles = {
 };
 
 const Logs: VFC = () => {
-  const [selectedLog, setSelectedLog] = useState<Log>();
+  const [selectedLogIndex, setSelectedLogIndex] = useState(0);
 
   const logs = useSelector((state: RootState) => state.logs);
   const dispatch = useDispatch<AppDispatch>();
@@ -66,10 +66,16 @@ const Logs: VFC = () => {
       });
   }, []);
 
+  const selectedLog = logs[selectedLogIndex];
+
   return (
     <div css={styles.container}>
       <h2 css={styles.title}>Logs</h2>
-      {logs.length ? <LogList setSelectedLog={setSelectedLog} /> : "No Logs"}
+      {logs.length ? (
+        <LogList setSelectedLogIndex={setSelectedLogIndex} />
+      ) : (
+        "No Logs"
+      )}
       {selectedLog && (
         <>
           <h3 css={styles.title}>Selected Log</h3>

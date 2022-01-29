@@ -3,7 +3,6 @@ import { Dispatch, FormEvent, SetStateAction, VFC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { TimeToStr } from "../../../utils/time";
-import { Log } from "../../../utils/types";
 
 const styles = {
   container: css`
@@ -38,10 +37,10 @@ const styles = {
 };
 
 interface Props {
-  setSelectedLog: Dispatch<SetStateAction<Log | undefined>>;
+  setSelectedLogIndex: Dispatch<SetStateAction<number>>;
 }
 
-const LogList: VFC<Props> = ({ setSelectedLog }) => {
+const LogList: VFC<Props> = ({ setSelectedLogIndex }) => {
   const logs = useSelector((state: RootState) => state.logs);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -49,8 +48,8 @@ const LogList: VFC<Props> = ({ setSelectedLog }) => {
     const target = e.currentTarget;
     const id = target.name;
 
-    const log = logs.find((log) => log.id === id);
-    setSelectedLog(log);
+    const logIndex = logs.findIndex((log) => log.id === id);
+    setSelectedLogIndex(logIndex);
   };
 
   return (
