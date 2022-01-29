@@ -12,7 +12,7 @@ export const logsSlice = createSlice({
       state.push(...action.payload);
     },
     addLog: (state, action: PayloadAction<Log>) => {
-      state.push(action.payload);
+      state.unshift(action.payload);
     },
   },
 });
