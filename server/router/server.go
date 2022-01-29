@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"strings"
 
 	"github.com/gofrs/uuid"
 	"github.com/labstack/echo-contrib/session"
@@ -65,7 +66,11 @@ func (r *Router) postServersHandler(c echo.Context) error {
 			return c.String(http.StatusInternalServerError, err.Error())
 		}
 
-		_, err = url.Parse(v.Address)
+		verifyAddress := v.Address
+		if !strings.HasPrefix(v.Address, "http://") && !strings.HasPrefix(v.Address, "https://") {
+			verifyAddress = "http://" + v.Address
+		}
+		_, err = url.Parse(verifyAddress)
 		if err != nil {
 			return c.String(http.StatusBadRequest, err.Error())
 		}
@@ -107,7 +112,12 @@ func (r *Router) putServersServerNumberHandler(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 	address := body.String()
-	_, err = url.Parse(address)
+
+	verifyAddress := address
+	if !strings.HasPrefix(address, "http://") && !strings.HasPrefix(address, "https://") {
+		verifyAddress = "http://" + address
+	}
+	_, err = url.Parse(verifyAddress)
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
