@@ -13,6 +13,7 @@ const Home: VFC = () => {
       <ServerContainer />
       <Benchmark />
       <Logs />
+      <br />
     </>
   );
 };

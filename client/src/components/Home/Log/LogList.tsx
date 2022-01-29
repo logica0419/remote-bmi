@@ -60,10 +60,9 @@ const LogList: VFC<Props> = ({ setSelectedLog }) => {
           <tr>
             <th css={styles.th}>Time</th>
             <th css={styles.th}>Server</th>
-            <th css={styles.th}>Log</th>
+            <th css={styles.th}>Detail</th>
           </tr>
         </thead>
-
         <tbody>
           {logs.map((log) => {
             return (

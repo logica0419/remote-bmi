@@ -1,8 +1,7 @@
 import { useEffect, VFC } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./components/Home";
-import Login from "./components/Login";
-import OAuth from "./components/OAuth";
+import Auth from "./components/Auth";
 import { useLoginCheck } from "./utils/login";
 
 const Router: VFC = () => {
@@ -15,10 +14,6 @@ const Router: VFC = () => {
 
   return (
     <Routes>
-      <Route
-        path="/oauth"
-        element={<OAuth fetchLoginStatus={fetchLoginStatus} />}
-      />
       {authorized ? (
         <>
           <Route path="/" element={<Home />} />
@@ -36,7 +31,7 @@ const Router: VFC = () => {
         </>
       ) : (
         <>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Auth />} />
           <Route
             path="/*"
             element={() => {
