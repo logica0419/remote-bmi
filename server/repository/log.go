@@ -42,7 +42,7 @@ func (repo *Repository) SelectLogsByUserID(userID uuid.UUID) ([]*Log, error) {
 	return logs, nil
 }
 
-func (repo *Repository) InsertLog(log Log) error {
+func (repo *Repository) InsertLog(log *Log) error {
 	res := repo.getTx().Create(&log)
 	if res.Error != nil {
 		return res.Error

@@ -59,7 +59,7 @@ func (b *Benchmarker) Run(userID uuid.UUID, serverNumber int) (uuid.UUID, error)
 		return uuid.Nil, err
 	}
 	stdout := string(stdoutBinary)
-	log := repository.Log{
+	log := &repository.Log{
 		ID:       id,
 		UserID:   userID,
 		ServerID: server.ID,
