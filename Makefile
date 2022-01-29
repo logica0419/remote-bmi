@@ -1,3 +1,7 @@
+.PHONY: init
+init:
+	go mod download && cd client && npm i
+
 .PHONY: wire
 wire:
 	@cd server/cmd && wire
@@ -22,14 +26,14 @@ build-server:
 help: build-server
 	@./remote-bmi -h
 
-.PHONY:config
+.PHONY: config
 config: build-server
 	@./remote-bmi config
 
-.PHONY:serve
-serve: build
+.PHONY: serve
+serve: build-server
 	@./remote-bmi serve
 
-.PHONY:dev
+.PHONY: dev
 dev:
 	@cd client && npm run dev

@@ -4,12 +4,32 @@
 ISUCONの練習時に使える、簡易的なベンチマーカーWebUI  
 プライベートネットワークで競技用サーバーと繋がったベンチマークサーバーで動かすことを想定しています。
 
+## 設定
+
+リポジトリ直下に`config.json`というファイルを作って下さい。
+
+```json
+{
+  "address": ":3000",           // Remote-BMIをがリッスンするアドレス
+  "mysql": {                    // MySQLの設定
+    "hostname": "localhost",      // ホスト
+    "port": 3306,                 // ポート
+    "username": "isucon",         // ユーザー名
+    "password": "isucon",         // パスワード
+    "database": "remote_bmi"      // データベース名
+  },
+  "version": "isucon11-qualify" // 実行するベンチマークコマンドのバージョン
+  // server/benchmark/command.go に全てのコマンドをmapでまとめ、そのキーを"version"に入れます。
+}
+```
+
 ## ビルド
 
 Node.js環境とGo環境が必要です。
 リポジトリをクローンした上で、リポジトリのルートディレクトリでコマンドを実行してください。
 
 ```sh
+make init
 make build
 ```
 
@@ -25,3 +45,5 @@ make build
 ```sh
 ./remote-bmi serve
 ```
+
+ベンチマークサーバー内でのSystemdによる管理をオススメします。
