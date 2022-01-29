@@ -31,7 +31,7 @@
 <text text-anchor="start" x="291.8022" y="-363.9" font-family="Arial" font-size="14.00" fill="#666666">[text]</text>
 <polygon fill="none" stroke="#000000" points="235,-322.5 235,-352.5 469,-352.5 469,-322.5 235,-322.5"/>
 <text text-anchor="start" x="242" y="-333.9" font-family="Arial" font-size="14.00" fill="#000000">created_at </text>
-<text text-anchor="start" x="312.028" y="-333.9" font-family="Arial" font-size="14.00" fill="#666666">[datetime]</text>
+<text text-anchor="start" x="312.028" y="-333.9" font-family="Arial" font-size="14.00" fill="#666666">[datetime(3)]</text>
 <polygon fill="none" stroke="#000000" stroke-width="3" points="233.5,-321.5 233.5,-509.5 470.5,-509.5 470.5,-321.5 233.5,-321.5"/>
 </g>
 <!-- user -->

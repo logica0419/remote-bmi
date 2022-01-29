@@ -57,7 +57,7 @@ jobs:
         with:
           path: ./client/node_modules
           key: mod-${{ hashFiles('**/package-lock.json') }}
-      - name: run lint
+      - name: Lint
         run: npm run lint
   type:
     name: Type Check
@@ -78,7 +78,7 @@ jobs:
         with:
           path: ./client/node_modules
           key: mod-${{ hashFiles('**/package-lock.json') }}
-      - name: run type-check
+      - name: Type Check
         run: npm run type-check
   build:
     name: Build
@@ -99,7 +99,7 @@ jobs:
         with:
           path: ./client/node_modules
           key: mod-${{ hashFiles('**/package-lock.json') }}
-      - name: run build
+      - name: Build
         run: npm run build
         env:
           NODE_ENV: production

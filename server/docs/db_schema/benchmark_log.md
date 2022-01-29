@@ -11,7 +11,7 @@ CREATE TABLE `benchmark_log` (
   `user_id` char(36) NOT NULL,
   `server_id` char(36) NOT NULL,
   `std_out` text NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_at` datetime(3) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_benchmark_log_user` (`user_id`),
   KEY `fk_benchmark_log_server` (`server_id`),
@@ -30,7 +30,7 @@ CREATE TABLE `benchmark_log` (
 | user_id | char(36) |  | false |  | [user](user.md) |  |
 | server_id | char(36) |  | false |  | [server_list](server_list.md) |  |
 | std_out | text |  | false |  |  |  |
-| created_at | datetime | current_timestamp() | false |  |  |  |
+| created_at | datetime(3) |  | false |  |  |  |
 
 ## Constraints
 

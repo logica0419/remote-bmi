@@ -47,7 +47,7 @@
 <text text-anchor="start" x="99.8022" y="-306.9" font-family="Arial" font-size="14.00" fill="#666666">[text]</text>
 <polygon fill="none" stroke="#000000" points="43,-265.5 43,-295.5 277,-295.5 277,-265.5 43,-265.5"/>
 <text text-anchor="start" x="50" y="-276.9" font-family="Arial" font-size="14.00" fill="#000000">created_at </text>
-<text text-anchor="start" x="120.028" y="-276.9" font-family="Arial" font-size="14.00" fill="#666666">[datetime]</text>
+<text text-anchor="start" x="120.028" y="-276.9" font-family="Arial" font-size="14.00" fill="#666666">[datetime(3)]</text>
 </g>
 <!-- benchmark_log&#45;&gt;user -->
 <g id="edge1" class="edge">

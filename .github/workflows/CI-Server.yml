@@ -81,5 +81,5 @@ jobs:
         with:
           path: ~/go/pkg/mod
           key: mod-${{ hashFiles('**/go.sum') }}
-      - name: Run Test
+      - name: Test
         run: go test ./... -v
