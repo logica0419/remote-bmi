@@ -9,7 +9,7 @@ type Server struct {
 	UserID       uuid.UUID `gorm:"type:char(36);not null;"`
 	User         User      `gorm:"foreignkey:UserID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 	ServerNumber int       `gorm:"type:int(1);not null"`
-	Address      string    `gorm:"type:varchar(2048);not null;unique"`
+	Address      string    `gorm:"type:varchar(512);not null;unique"`
 }
 
 func (Server) TableName() string {
