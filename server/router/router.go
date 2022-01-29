@@ -55,10 +55,10 @@ func NewRouter(cfg *Config, repo *repository.Repository, bench *benchmark.Benchm
 			return c.String(http.StatusOK, cfg.Version)
 		}, checkLoginMiddleware)
 
-		oauth := api.Group("/oauth")
+		auth := r.e.Group("")
 		{
-			oauth.GET("/callback", r.getOauthCallbackHandler)
-			oauth.POST("/code", r.postOAuthCodeHandler)
+			auth.POST("/signup", r.signupHandler)
+			auth.POST("/login", r.loginHandler)
 		}
 
 		user := api.Group("/users", checkLoginMiddleware)

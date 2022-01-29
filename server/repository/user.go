@@ -22,6 +22,17 @@ func (repo *Repository) SelectUserByID(userID uuid.UUID) (*User, error) {
 	return user, nil
 }
 
+func (repo *Repository) SelectUserByName(name string) (*User, error) {
+	var user *User
+
+	res := repo.getTx().First(&user, "name = ?", name)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+
+	return user, nil
+}
+
 func (repo *Repository) InsertUser(user *User) error {
 	res := repo.getTx().Create(user)
 	if res.Error != nil {
