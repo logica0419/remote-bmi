@@ -38,7 +38,11 @@ const Auth: VFC = () => {
       .then(() => {
         fetchLoginStatus();
       })
-      .catch(() => {
+      .catch((err) => {
+        if (err.status === 404) {
+          alert("存在しないユーザーです");
+          return;
+        }
         alert("ログインに失敗しました");
       });
   };
