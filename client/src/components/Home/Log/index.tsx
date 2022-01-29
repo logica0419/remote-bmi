@@ -12,6 +12,8 @@ const styles = {
   container: css`
     margin-top: 1em;
     align-items: center;
+    display: flex;
+    flex-direction: column;
   `,
   title: css`
     line-height: min(10px, calc(2vw - 10px));
@@ -22,11 +24,13 @@ const styles = {
     border-radius: 5px;
     background: #25292f;
     color: #ffffff;
-    white-space: pre-wrap;
+    white-space: pre;
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
       monospace;
     font-size: 15px;
     text-align: left;
+    max-width: min(500px, 90vw);
+    overflow-x: auto;
   `,
   button: (color: string) => {
     return css`
