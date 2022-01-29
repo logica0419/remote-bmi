@@ -17,7 +17,12 @@ const Router: VFC = () => {
       {authorized ? (
         <>
           <Route path="/" element={<Home />} />
-          <Route path="/*" element={<h2>Not Found</h2>} />
+          <Route
+            path="/*"
+            element={() => {
+              navigate("/");
+            }}
+          />
         </>
       ) : isFetching ? (
         <>
@@ -31,7 +36,10 @@ const Router: VFC = () => {
         </>
       ) : (
         <>
-          <Route path="/" element={<Auth />} />
+          <Route
+            path="/"
+            element={<Auth fetchLoginStatus={fetchLoginStatus} />}
+          />
           <Route
             path="/*"
             element={() => {

@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { FormEvent, useState, VFC } from "react";
-import { useLoginCheck } from "../../utils/login";
 import Form from "./Form";
 
 const styles = {
@@ -10,9 +9,11 @@ const styles = {
   `,
 };
 
-const Auth: VFC = () => {
-  const { fetchLoginStatus } = useLoginCheck();
+interface Props {
+  fetchLoginStatus: () => Promise<void>;
+}
 
+const Auth: VFC<Props> = ({ fetchLoginStatus }) => {
   const [signUpName, setSignUpName] = useState("");
 
   const onSignUp = (e: FormEvent<HTMLFormElement>) => {
@@ -38,8 +39,8 @@ const Auth: VFC = () => {
       .then(() => {
         fetchLoginStatus();
       })
-      .catch((err) => {
-        if (err.status === 404) {
+      .catch((err: AxiosError) => {
+        if (err.response?.status === 404) {
           alert("存在しないユーザーです");
           return;
         }
