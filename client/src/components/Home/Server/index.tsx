@@ -9,6 +9,7 @@ import ConfirmModal from "./ConfirmModal";
 import { AppDispatch, RootState } from "../../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteServers, registerServers } from "../../../store/servers";
+import { deleteLogs } from "../../../store/logs";
 
 const styles = {
   container: css`
@@ -127,6 +128,7 @@ const ServerContainer: VFC = () => {
       .delete("/api/servers")
       .then(() => {
         dispatch(deleteServers());
+        dispatch(deleteLogs());
       })
       .catch(() => {
         alert("サーバー設定の削除に失敗しました");

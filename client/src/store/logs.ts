@@ -14,7 +14,10 @@ export const logsSlice = createSlice({
     addLog: (state, action: PayloadAction<Log>) => {
       state.unshift(action.payload);
     },
+    deleteLogs: (state) => {
+      state.length = 0;
+    },
   },
 });
 
-export const { registerLogs, addLog } = logsSlice.actions;
+export const { registerLogs, addLog, deleteLogs } = logsSlice.actions;
