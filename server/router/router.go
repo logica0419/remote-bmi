@@ -15,18 +15,16 @@ import (
 )
 
 type Router struct {
-	e        *echo.Echo
-	address  string
-	cli      *traq.APIClient
-	clientID string
-	repo     *repository.Repository
-	bench    *benchmark.Benchmarker
+	e       *echo.Echo
+	address string
+	cli     *traq.APIClient
+	repo    *repository.Repository
+	bench   *benchmark.Benchmarker
 }
 
 type Config struct {
-	Address  string
-	Version  string
-	ClientID string
+	Address string
+	Version string
 }
 
 func NewRouter(cfg *Config, repo *repository.Repository, bench *benchmark.Benchmarker, db *sql.DB) (*Router, error) {
@@ -38,12 +36,11 @@ func NewRouter(cfg *Config, repo *repository.Repository, bench *benchmark.Benchm
 	cli := traq.NewAPIClient(traq.NewConfiguration())
 
 	r := &Router{
-		e:        e,
-		address:  cfg.Address,
-		cli:      cli,
-		clientID: cfg.ClientID,
-		repo:     repo,
-		bench:    bench,
+		e:       e,
+		address: cfg.Address,
+		cli:     cli,
+		repo:    repo,
+		bench:   bench,
 	}
 
 	api := r.e.Group("/api")

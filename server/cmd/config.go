@@ -15,9 +15,8 @@ import (
 var c = &Config{}
 
 type Config struct {
-	Address  string `mapstructure:"address" json:"address"`
-	ClientID string `mapstructure:"client_id" json:"client_id"`
-	MySQL    struct {
+	Address string `mapstructure:"address" json:"address"`
+	MySQL   struct {
 		Hostname string `mapstructure:"hostname" json:"hostname,omitempty"`
 		Port     int    `mapstructure:"port" json:"port,omitempty"`
 		Username string `mapstructure:"username" json:"username,omitempty"`
@@ -29,9 +28,8 @@ type Config struct {
 
 func newRouterConfig(c *Config) *router.Config {
 	return &router.Config{
-		Address:  c.Address,
-		Version:  c.Version,
-		ClientID: c.ClientID,
+		Address: c.Address,
+		Version: c.Version,
 	}
 }
 
@@ -53,7 +51,6 @@ func newBenchmarkerConfig(c *Config) *benchmark.Config {
 
 func loadConfig(configFile string) error {
 	viper.SetDefault("address", ":3000")
-	viper.SetDefault("client_id", "")
 	viper.SetDefault("mysql.hostname", "127.0.0.1")
 	viper.SetDefault("mysql.port", 3306)
 	viper.SetDefault("mysql.username", "isucon")
