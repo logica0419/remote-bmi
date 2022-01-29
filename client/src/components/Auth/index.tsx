@@ -67,6 +67,7 @@ const Auth: VFC<Props> = ({ fetchLoginStatus }) => {
         name={loginName}
         setName={setLoginName}
       />
+      <br />
     </>
   );
 };
