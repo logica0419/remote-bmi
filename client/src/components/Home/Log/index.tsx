@@ -21,7 +21,7 @@ const styles = {
   codeBlock: css`
     margin: 1em 0;
     padding: 1em;
-    border-radius: 5px;
+    border-radius: 10px;
     background: #25292f;
     color: #ffffff;
     white-space: pre;
@@ -30,7 +30,8 @@ const styles = {
     font-size: 15px;
     text-align: left;
     max-width: min(500px, 90vw);
-    overflow-x: auto;
+    max-height: min(500px, 60vh);
+    overflow: auto;
   `,
   button: (color: string) => {
     return css`
