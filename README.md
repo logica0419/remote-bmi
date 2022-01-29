@@ -10,7 +10,7 @@ ISUCONの練習時に使える、簡易的なベンチマーカーWebUI
 
 ```json
 {
-  "address": ":3000",           // Remote-BMIをがリッスンするアドレス
+  "address": ":3000",           // Remote-BMIがリッスンするアドレス
   "mysql": {                    // MySQLの設定
     "hostname": "localhost",      // ホスト
     "port": 3306,                 // ポート
