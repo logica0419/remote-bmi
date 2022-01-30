@@ -11,8 +11,8 @@ import (
 )
 
 type Benchmarker struct {
-	repo    *repository.Repository
-	command command
+	repo *repository.Repository
+	cmd  command
 	sync.Mutex
 }
 
@@ -27,8 +27,8 @@ func NewBenchmarker(c *Config, repo *repository.Repository) (*Benchmarker, error
 	}
 
 	return &Benchmarker{
-		command: command,
-		repo:    repo,
+		cmd:  command,
+		repo: repo,
 	}, nil
 }
 
@@ -36,19 +36,32 @@ func (b *Benchmarker) Run(userID uuid.UUID, serverNumber int) (uuid.UUID, error)
 	b.Lock()
 	defer b.Unlock()
 
-	server, err := b.repo.SelectServerByUserIDAndServerNumber(userID, serverNumber)
+	servers, err := b.repo.SelectServersByUserID(userID)
 	if err != nil {
 		return uuid.Nil, err
 	}
 
-	commandStr := fmt.Sprintf(b.command.command, server.Address)
-	args, err := shellword.Parse(commandStr)
+	var target *repository.Server
+	for _, server := range servers {
+		if server.ServerNumber == serverNumber {
+			target = server
+		}
+	}
+	if target == nil {
+		return uuid.Nil, fmt.Errorf("target server not found")
+	}
+
+	command, err := b.cmd.createCmd(servers, serverNumber)
+	if err != nil {
+		return uuid.Nil, err
+	}
+	args, err := shellword.Parse(command)
 	if err != nil {
 		return uuid.Nil, err
 	}
 
 	cmd := exec.Command(args[0], args[1:]...)
-	cmd.Dir = b.command.workDir
+	cmd.Dir = b.cmd.workDir
 	stdoutBinary, err := cmd.Output()
 	if err != nil {
 		return uuid.Nil, err
@@ -62,7 +75,7 @@ func (b *Benchmarker) Run(userID uuid.UUID, serverNumber int) (uuid.UUID, error)
 	log := &repository.Log{
 		ID:       id,
 		UserID:   userID,
-		ServerID: server.ID,
+		ServerID: target.ID,
 		StdOut:   stdout,
 	}
 

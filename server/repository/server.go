@@ -27,17 +27,6 @@ func (repo *Repository) SelectServersByUserID(userID uuid.UUID) ([]*Server, erro
 	return servers, nil
 }
 
-func (repo *Repository) SelectServerByUserIDAndServerNumber(userID uuid.UUID, serverNumber int) (*Server, error) {
-	var server Server
-
-	res := repo.getTx().Where("user_id = ? AND server_number = ?", userID, serverNumber).First(&server)
-	if res.Error != nil {
-		return nil, res.Error
-	}
-
-	return &server, nil
-}
-
 func (repo *Repository) InsertServers(servers []*Server) error {
 	res := repo.getTx().Create(servers)
 	if res.Error != nil {
