@@ -24,6 +24,9 @@ func (r *Router) getServersHandler(c echo.Context) error {
 	userUUID, _ := uuid.FromString(sess.Values["user_id"].(string))
 
 	servers, err := r.repo.SelectServersByUserID(userUUID)
+	if len(servers) == 0 {
+		return c.String(http.StatusNotFound, "servers not found")
+	}
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
@@ -58,33 +61,42 @@ func (r *Router) postServersHandler(c echo.Context) error {
 	sess, _ := session.Get("session", c)
 	userUUID, _ := uuid.FromString(sess.Values["user_id"].(string))
 
+	existingServers, _ := r.repo.SelectServersByUserID(userUUID)
+	if len(existingServers) > 0 {
+		return c.String(http.StatusConflict, "servers already exist")
+	}
+
 	servers := []*repository.Server{}
 	serverNumberUsed := map[int]bool{}
-	for _, v := range req {
+	for _, server := range req {
 		id, err := uuid.NewV4()
 		if err != nil {
 			return c.String(http.StatusInternalServerError, err.Error())
 		}
 
-		verifyAddress := v.Address
-		if !strings.HasPrefix(v.Address, "http://") && !strings.HasPrefix(v.Address, "https://") {
-			verifyAddress = "http://" + v.Address
+		verifyAddress := server.Address
+		if !strings.HasPrefix(server.Address, "http://") && !strings.HasPrefix(server.Address, "https://") {
+			verifyAddress = "http://" + server.Address
 		}
 		_, err = url.Parse(verifyAddress)
 		if err != nil {
 			return c.String(http.StatusBadRequest, err.Error())
 		}
 
-		if _, ok := serverNumberUsed[v.ServerNumber]; ok {
+		if server.ServerNumber < 1 || server.ServerNumber > 3 {
+			return c.String(http.StatusBadRequest, "server number must be 1, 2 or 3")
+		}
+
+		if _, ok := serverNumberUsed[server.ServerNumber]; ok {
 			return c.String(http.StatusBadRequest, "server_number is duplicated")
 		}
-		serverNumberUsed[v.ServerNumber] = true
+		serverNumberUsed[server.ServerNumber] = true
 
 		servers = append(servers, &repository.Server{
 			ID:           id,
 			UserID:       userUUID,
-			ServerNumber: v.ServerNumber,
-			Address:      v.Address,
+			ServerNumber: server.ServerNumber,
+			Address:      server.Address,
 		})
 	}
 
@@ -127,6 +139,9 @@ func (r *Router) putServersServerNumberHandler(c echo.Context) error {
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
+	if serverNumber < 1 || serverNumber > 3 {
+		return c.String(http.StatusBadRequest, "server number must be 1, 2 or 3")
+	}
 
 	sess, _ := session.Get("session", c)
 	userUUID, _ := uuid.FromString(sess.Values["user_id"].(string))
@@ -142,6 +157,11 @@ func (r *Router) putServersServerNumberHandler(c echo.Context) error {
 func (r *Router) deleteServersHandler(c echo.Context) error {
 	sess, _ := session.Get("session", c)
 	userUUID, _ := uuid.FromString(sess.Values["user_id"].(string))
+
+	existingServers, _ := r.repo.SelectServersByUserID(userUUID)
+	if len(existingServers) == 0 {
+		return c.String(http.StatusNotFound, "servers not found")
+	}
 
 	err := r.repo.DeleteServersByUserID(userUUID)
 	if err != nil {
