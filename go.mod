@@ -3,7 +3,6 @@ module github.com/logica0419/remote-bmi
 go 1.17
 
 require (
-	github.com/antihax/optional v1.0.0
 	github.com/davecgh/go-spew v1.1.1
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/google/wire v0.5.0
@@ -11,15 +10,16 @@ require (
 	github.com/labstack/echo-contrib v0.12.0
 	github.com/labstack/echo/v4 v4.6.3
 	github.com/labstack/gommon v0.3.1
+	github.com/mattn/go-shellwords v1.0.12
 	github.com/sapphi-red/go-traq v0.0.0-20210619185243-f487eb63bd8c
 	github.com/spf13/cobra v1.3.0
 	github.com/spf13/viper v1.10.1
 	github.com/srinathgs/mysqlstore v0.0.0-20200417050510-9cbb9420fc4c
-	github.com/thanhpk/randstr v1.0.4
 	gorm.io/driver/mysql v1.2.3
-	gorm.io/gorm v1.22.5
-  github.com/mattn/go-shellwords v1.0.12
+	gorm.io/gorm v1.23.1
 )
+
+require github.com/antihax/optional v1.0.0 // indirect
 
 require (
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
