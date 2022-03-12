@@ -10,14 +10,12 @@ import (
 	"github.com/labstack/gommon/log"
 	"github.com/logica0419/remote-bmi/server/benchmark"
 	"github.com/logica0419/remote-bmi/server/repository"
-	"github.com/sapphi-red/go-traq"
 	"github.com/srinathgs/mysqlstore"
 )
 
 type Router struct {
 	e       *echo.Echo
 	address string
-	cli     *traq.APIClient
 	repo    *repository.Repository
 	bench   *benchmark.Benchmarker
 }
@@ -33,12 +31,9 @@ func NewRouter(cfg *Config, repo *repository.Repository, bench *benchmark.Benchm
 		return nil, err
 	}
 
-	cli := traq.NewAPIClient(traq.NewConfiguration())
-
 	r := &Router{
 		e:       e,
 		address: cfg.Address,
-		cli:     cli,
 		repo:    repo,
 		bench:   bench,
 	}
@@ -76,7 +71,6 @@ func NewRouter(cfg *Config, repo *repository.Repository, bench *benchmark.Benchm
 		api.GET("/logs", r.getLogsHandler, checkLoginMiddleware)
 	}
 
-	r.e.File("/oauth", "client/dist/index.html")
 	r.e.Static("/", "client/dist")
 
 	return r, nil
