@@ -1,6 +1,7 @@
 package router
 
 import (
+	"crypto/rand"
 	"database/sql"
 	"net/http"
 
@@ -83,7 +84,18 @@ func newEcho(db *sql.DB) (*echo.Echo, error) {
 	e.Logger.SetHeader("${time_rfc3339} ${prefix} ${short_file} ${line} |")
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{Format: "${time_rfc3339} method = ${method} | uri = ${uri} | status = ${status} ${error}\n"}))
 
-	store, err := mysqlstore.NewMySQLStoreFromConnection(db, "session", "/", 3600, []byte("<SecretKey>"))
+	const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	b := make([]byte, 32)
+	_, err := rand.Read(b)
+	if err != nil {
+		return nil, err
+	}
+	var secKey string
+	for _, v := range b {
+		secKey += string(letters[int(v)%len(letters)])
+	}
+
+	store, err := mysqlstore.NewMySQLStoreFromConnection(db, "session", "/", 3600, []byte(secKey))
 	if err != nil {
 		return nil, err
 	}
