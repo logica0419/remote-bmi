@@ -24,11 +24,11 @@ func (r *Router) getServersHandler(c echo.Context) error {
 	userUUID, _ := uuid.FromString(sess.Values["user_id"].(string))
 
 	servers, err := r.repo.SelectServersByUserID(userUUID)
-	if len(servers) == 0 {
-		return c.String(http.StatusNotFound, "servers not found")
-	}
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
+	}
+	if len(servers) == 0 {
+		return c.String(http.StatusNotFound, "servers not found")
 	}
 
 	res := []serversResponse{}
