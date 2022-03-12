@@ -1,5 +1,9 @@
 # Remote-BMI
 
+[![Client CI Pipeline](https://github.com/logica0419/remote-bmi/actions/workflows/CI-Client.yml/badge.svg)](https://github.com/logica0419/remote-bmi/actions/workflows/CI-Client.yml)
+[![Server CI Pipeline](https://github.com/logica0419/remote-bmi/actions/workflows/CI-Server.yml/badge.svg)](https://github.com/logica0419/remote-bmi/actions/workflows/CI-Server.yml)
+[![CodeQL](https://github.com/logica0419/remote-bmi/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/logica0419/remote-bmi/actions/workflows/codeql-analysis.yml)
+
 (BMI = Bench Marker Interface)  
 ISUCONの練習時に使える、簡易的なベンチマーカーWebUI  
 プライベートネットワークで競技用サーバーと繋がったベンチマークサーバーで動かすことを想定しています。
