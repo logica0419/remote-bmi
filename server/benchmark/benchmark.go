@@ -11,13 +11,15 @@ import (
 )
 
 type Benchmarker struct {
-	repo *repository.Repository
-	cmd  command
+	repo    *repository.Repository
+	cmd     command
+	benchIP string
 	sync.Mutex
 }
 
 type Config struct {
 	Version string
+	BenchIP string
 }
 
 func NewBenchmarker(c *Config, repo *repository.Repository) (*Benchmarker, error) {
@@ -27,8 +29,9 @@ func NewBenchmarker(c *Config, repo *repository.Repository) (*Benchmarker, error
 	}
 
 	return &Benchmarker{
-		cmd:  command,
-		repo: repo,
+		benchIP: c.BenchIP,
+		cmd:     command,
+		repo:    repo,
 	}, nil
 }
 
@@ -51,7 +54,7 @@ func (b *Benchmarker) Run(userID uuid.UUID, serverNumber int) (uuid.UUID, error)
 		return uuid.Nil, fmt.Errorf("target server not found")
 	}
 
-	command, err := b.cmd.createCmd(servers, serverNumber)
+	command, err := b.cmd.createCmd(b.benchIP, servers, serverNumber)
 	if err != nil {
 		return uuid.Nil, err
 	}

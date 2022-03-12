@@ -9,19 +9,19 @@ import (
 
 type command struct {
 	workDir   string
-	createCmd func(servers []*repository.Server, serverNumber int) (string, error)
+	createCmd func(benchServerAddr string, servers []*repository.Server, serverNumber int) (string, error)
 }
 
 var commands = map[string]command{
 	"isucon-test": {
 		workDir: ".",
-		createCmd: func(servers []*repository.Server, serverNumber int) (string, error) {
+		createCmd: func(benchServerAddr string, servers []*repository.Server, serverNumber int) (string, error) {
 			return "sleep 2s", nil
 		}},
 
 	"isucon11-qualify": {
 		workDir: "/home/isucon/bench",
-		createCmd: func(servers []*repository.Server, serverNumber int) (string, error) {
+		createCmd: func(benchServerIP string, servers []*repository.Server, serverNumber int) (string, error) {
 			allAddressesArr := []string{}
 			target := ""
 
@@ -37,7 +37,7 @@ var commands = map[string]command{
 			}
 			allAddresses := strings.Join(allAddressesArr, ",")
 
-			return fmt.Sprintf("./bench -all-addresses %s -target %s -tls -jia-service-url http://127.0.0.1:4999", allAddresses, target), nil
+			return fmt.Sprintf("./bench -all-addresses %s -target %s -tls -jia-service-url http://%s:4999", allAddresses, target, benchServerIP), nil
 		},
 	},
 }

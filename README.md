@@ -10,16 +10,17 @@ ISUCONの練習時に使える、簡易的なベンチマーカーWebUI
 
 ```json
 {
-  "address": ":3000",           // Remote-BMIがリッスンするアドレス
-  "mysql": {                    // MySQLの設定
-    "hostname": "localhost",      // ホスト
-    "port": 3306,                 // ポート
-    "username": "isucon",         // ユーザー名
-    "password": "isucon",         // パスワード
-    "database": "remote_bmi"      // データベース名
+  "address": ":3000",             // Remote-BMIがリッスンするアドレス
+  "mysql": {                      // MySQLの設定
+    "hostname": "localhost",        // ホスト
+    "port": 3306,                   // ポート
+    "username": "isucon",           // ユーザー名
+    "password": "isucon",           // パスワード
+    "database": "remote_bmi"        // データベース名
   },
-  "version": "isucon11-qualify" // 実行するベンチマークコマンドのバージョン
+  "version": "isucon11-qualify",  // 実行するベンチマークコマンドのバージョン
   // server/benchmark/command.go に全てのコマンドをmapでまとめ、そのキーを"version"に入れます。
+  "bench_ip": "localhost"         // ベンチマークサーバーのプライベートIPアドレス
 }
 ```
 
@@ -46,4 +47,4 @@ make build
 ./remote-bmi serve
 ```
 
-ベンチマークサーバー内でのSystemdによる管理をオススメします。
+ベンチマークサーバー内でのsystemdによる管理をオススメします。

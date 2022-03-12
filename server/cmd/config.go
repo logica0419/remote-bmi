@@ -24,6 +24,7 @@ type Config struct {
 		Database string `mapstructure:"database" json:"database,omitempty"`
 	} `mapstructure:"mysql" json:"mysql"`
 	Version string `mapstructure:"version" json:"version,omitempty"`
+	BenchIP string `mapstructure:"bench_ip" json:"bench_ip,omitempty"`
 }
 
 func newRouterConfig(c *Config) *router.Config {
@@ -46,6 +47,7 @@ func newRepositoryConfig(c *Config) *repository.Config {
 func newBenchmarkerConfig(c *Config) *benchmark.Config {
 	return &benchmark.Config{
 		Version: c.Version,
+		BenchIP: c.BenchIP,
 	}
 }
 
@@ -57,6 +59,7 @@ func loadConfig(configFile string) error {
 	viper.SetDefault("mysql.password", "isucon")
 	viper.SetDefault("mysql.database", "Remote-BMI")
 	viper.SetDefault("version", "isucon-test")
+	viper.SetDefault("bench_ip", "127.0.0.1")
 
 	viper.AutomaticEnv()
 
