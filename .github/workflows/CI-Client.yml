@@ -29,9 +29,9 @@ jobs:
         if: steps.mod-cache.outputs.cache-hit != 'true'
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: latest
           cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          cache-dependency-path: "client/package-lock.json"
       - name: Install npm
         if: steps.mod-cache.outputs.cache-hit != 'true'
         run: npm install -g npm@7
@@ -48,9 +48,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: latest
           cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          cache-dependency-path: "client/package-lock.json"
       - name: Set Mod Cache
         id: mod-cache
         uses: actions/cache@v2.1.7
@@ -69,9 +69,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: latest
           cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          cache-dependency-path: "client/package-lock.json"
       - name: Set Mod Cache
         id: mod-cache
         uses: actions/cache@v2.1.7
@@ -90,9 +90,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: latest
           cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          cache-dependency-path: "client/package-lock.json"
       - name: Set Mod Cache
         id: mod-cache
         uses: actions/cache@v2.1.7
