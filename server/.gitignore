@@ -1,1 +1,2 @@
-/router/static/
+/router/static/*
+!/router/static/.gitkeep
