@@ -3,6 +3,8 @@ package router
 import (
 	"crypto/rand"
 	"database/sql"
+	"embed"
+	"io/fs"
 	"net/http"
 
 	"github.com/labstack/echo-contrib/session"
@@ -13,6 +15,18 @@ import (
 	"github.com/logica0419/remote-bmi/server/repository"
 	"github.com/srinathgs/mysqlstore"
 )
+
+//go:embed static
+var embeddedFiles embed.FS
+
+func getFileSystem() http.FileSystem {
+	fSys, err := fs.Sub(embeddedFiles, "static")
+	if err != nil {
+		panic(err)
+	}
+
+	return http.FS(fSys)
+}
 
 type Router struct {
 	e       *echo.Echo
@@ -72,7 +86,8 @@ func NewRouter(cfg *Config, repo *repository.Repository, bench *benchmark.Benchm
 		api.GET("/logs", r.getLogsHandler, checkLoginMiddleware)
 	}
 
-	r.e.Static("/", "client/dist")
+	assetHandler := http.FileServer(getFileSystem())
+	r.e.GET("/*", echo.WrapHandler(assetHandler))
 
 	return r, nil
 }

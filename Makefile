@@ -11,27 +11,24 @@ tbls:
 	@rm -rf server/docs/db_schema
 	@cd server/docs && tbls doc
 
-.PHONY: build
-build: build-server build-client
-
 .PHONY: build-client
 build-client:
 	@cd client && npm run build
 
-.PHONY: build-server
-build-server:
+.PHONY: build
+build: build-client
 	@go build -o remote-bmi server/*.go
 
 .PHONY: help
-help: build-server
+help: build
 	@./remote-bmi -h
 
 .PHONY: config
-config: build-server
+config: build
 	@./remote-bmi config
 
 .PHONY: serve
-serve: build-server
+serve: build
 	@./remote-bmi serve
 
 .PHONY: dev
