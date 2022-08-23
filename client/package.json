@@ -9,7 +9,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@emotion/react": "^11.8.1",
+    "@emotion/react": "^11.10.0",
     "@reduxjs/toolkit": "^1.7.1",
     "axios": "^0.26.0",
     "react": "^17.0.2",
