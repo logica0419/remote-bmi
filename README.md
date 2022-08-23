@@ -1,7 +1,7 @@
 # Remote-BMI
 
-[![Client CI Pipeline](https://github.com/logica0419/remote-bmi/actions/workflows/CI-Client.yml/badge.svg)](https://github.com/logica0419/remote-bmi/actions/workflows/CI-Client.yml)
-[![Server CI Pipeline](https://github.com/logica0419/remote-bmi/actions/workflows/CI-Server.yml/badge.svg)](https://github.com/logica0419/remote-bmi/actions/workflows/CI-Server.yml)
+[![Client CI Pipeline](https://github.com/logica0419/remote-bmi/actions/workflows/client.yml/badge.svg)](https://github.com/logica0419/remote-bmi/actions/workflows/client.yml)
+[![Server CI Pipeline](https://github.com/logica0419/remote-bmi/actions/workflows/server.yml/badge.svg)](https://github.com/logica0419/remote-bmi/actions/workflows/server.yml)
 [![CodeQL](https://github.com/logica0419/remote-bmi/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/logica0419/remote-bmi/actions/workflows/codeql-analysis.yml)
 
 (BMI = Bench Marker Interface)  
