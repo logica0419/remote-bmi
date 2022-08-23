@@ -12,7 +12,7 @@ require (
 	github.com/labstack/echo/v4 v4.8.0
 	github.com/labstack/gommon v0.3.1
 	github.com/mattn/go-shellwords v1.0.12
-	github.com/spf13/cobra v1.4.0
+	github.com/spf13/cobra v1.5.0
 	github.com/spf13/viper v1.10.1
 	github.com/srinathgs/mysqlstore v0.0.0-20200417050510-9cbb9420fc4c
 	gorm.io/driver/mysql v1.3.2
