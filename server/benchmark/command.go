@@ -9,13 +9,13 @@ import (
 
 type command struct {
 	workDir   string
-	createCmd func(benchServerAddr string, servers []*repository.Server, serverNumber int) (string, error)
+	createCmd func(benchServerIP string, servers []*repository.Server, serverNumber int) (string, error)
 }
 
 var commands = map[string]command{
 	"isucon-test": {
 		workDir: ".",
-		createCmd: func(benchServerAddr string, servers []*repository.Server, serverNumber int) (string, error) {
+		createCmd: func(benchServerIP string, servers []*repository.Server, serverNumber int) (string, error) {
 			return "sleep 2s", nil
 		}},
 
@@ -38,6 +38,25 @@ var commands = map[string]command{
 			allAddresses := strings.Join(allAddressesArr, ",")
 
 			return fmt.Sprintf("./bench -all-addresses %s -target %s -tls -jia-service-url http://%s:4999", allAddresses, target, benchServerIP), nil
+		},
+	},
+
+	"isucon11-final": {
+		workDir: "/home/isucon/bench",
+		createCmd: func(benchServerIP string, servers []*repository.Server, serverNumber int) (string, error) {
+			target := ""
+
+			for _, server := range servers {
+				if server.ServerNumber == serverNumber {
+					target = server.Address
+				}
+			}
+
+			if target == "" {
+				return "", fmt.Errorf("target server not found")
+			}
+
+			return fmt.Sprintf("./bin/benchmarker -target %s:443 -tls", target), nil
 		},
 	},
 }
