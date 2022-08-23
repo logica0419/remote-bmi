@@ -42,7 +42,7 @@ var commands = map[string]command{
 	},
 
 	"isucon11-final": {
-		workDir: "/home/isucon/bench",
+		workDir: "/home/isucon/benchmarker",
 		createCmd: func(benchServerIP string, servers []*repository.Server, serverNumber int) (string, error) {
 			target := ""
 
