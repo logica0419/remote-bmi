@@ -29,9 +29,8 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v3
         with:
-          go-version-file: server/go.mod
+          go-version-file: go.mod
           cache: true
-          cache-dependency-path: server/go.sum
       - name: Module Download
         if: steps.mod-cache.outputs.cache-hit != 'true'
         run: go mod download
@@ -45,9 +44,8 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v3
         with:
-          go-version-file: server/go.mod
+          go-version-file: go.mod
           cache: true
-          cache-dependency-path: server/go.sum
       - name: Build
         run: go build -o ./Remote-BMI server/*.go
       - uses: actions/upload-artifact@v2.3.1
@@ -64,8 +62,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v3
         with:
-          go-version-file: server/go.mod
+          go-version-file: go.mod
           cache: true
-          cache-dependency-path: server/go.sum
       - name: Test
         run: go test ./... -v
