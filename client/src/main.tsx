@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { StrictMode } from "react";
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import Router from "./router";
@@ -29,7 +29,10 @@ const style = {
   `,
 };
 
-render(
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const root = createRoot(document.getElementById("root")!);
+
+root.render(
   <StrictMode>
     <GlobalStyle />
     <div css={style.app}>
@@ -43,6 +46,5 @@ render(
         </BrowserRouter>
       </Provider>
     </div>
-  </StrictMode>,
-  document.getElementById("root")
+  </StrictMode>
 );
