@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { Dispatch, SetStateAction, VFC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 
@@ -15,7 +15,7 @@ interface Props {
   setServerNumber: Dispatch<SetStateAction<number>>;
 }
 
-const Selector: VFC<Props> = ({ serverNumber, setServerNumber }) => {
+const Selector: FC<Props> = ({ serverNumber, setServerNumber }) => {
   const servers = useSelector((state: RootState) => state.servers);
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

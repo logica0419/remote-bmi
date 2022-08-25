@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import axios from "axios";
-import { useState, VFC } from "react";
+import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store";
 import { addLog } from "../../../store/logs";
@@ -33,7 +33,7 @@ const styles = {
   },
 };
 
-const Benchmark: VFC = () => {
+const Benchmark: FC = () => {
   const [serverNumber, setServerNumber] = useState(1);
   const [isBenchmarking, setIsBenchmarking] = useState(false);
 

@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { Dispatch, FormEvent, SetStateAction, VFC } from "react";
+import { Dispatch, FC, FormEvent, SetStateAction } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { TimeToStr } from "../../../utils/time";
@@ -40,7 +40,7 @@ interface Props {
   setSelectedLogIndex: Dispatch<SetStateAction<number>>;
 }
 
-const LogList: VFC<Props> = ({ setSelectedLogIndex }) => {
+const LogList: FC<Props> = ({ setSelectedLogIndex }) => {
   const logs = useSelector((state: RootState) => state.logs);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {

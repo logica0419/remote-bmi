@@ -1,5 +1,5 @@
 import { css, keyframes } from "@emotion/react";
-import { VFC } from "react";
+import { FC } from "react";
 
 const animations = {
   spin: keyframes`
@@ -60,7 +60,7 @@ const styles = {
   `,
 };
 
-const Loading: VFC = () => {
+const Loading: FC = () => {
   return (
     <>
       <div css={styles.background} />

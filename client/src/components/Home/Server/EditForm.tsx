@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 import axios from "axios";
 import {
-  Dispatch,
-  SetStateAction,
-  VFC,
   ChangeEvent,
+  Dispatch,
+  FC,
   FormEvent,
+  SetStateAction,
   useState,
 } from "react";
 import { useDispatch } from "react-redux";
@@ -49,7 +49,7 @@ interface Props {
   setEditingServers: Dispatch<SetStateAction<Server[]>>;
 }
 
-const EditForm: VFC<Props> = ({ editingServers, setEditingServers }) => {
+const EditForm: FC<Props> = ({ editingServers, setEditingServers }) => {
   const [isEdited] = useState(new Map<number, boolean>());
 
   const dispatch = useDispatch<AppDispatch>();

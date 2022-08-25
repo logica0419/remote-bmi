@@ -1,10 +1,10 @@
-import { useEffect, VFC } from "react";
+import { FC, useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Auth from "./components/Auth";
 import Home from "./components/Home";
 import { useLoginCheck } from "./utils/login";
 
-const RootNavigator: VFC = () => {
+const RootNavigator: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const RootNavigator: VFC = () => {
   return <></>;
 };
 
-const Router: VFC = () => {
+const Router: FC = () => {
   const { authorized, isFetching, fetchLoginStatus } = useLoginCheck();
 
   useEffect(() => {

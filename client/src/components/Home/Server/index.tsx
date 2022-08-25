@@ -1,15 +1,15 @@
 import { css } from "@emotion/react";
 import axios from "axios";
-import { useEffect, useState, VFC } from "react";
+import { FC, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store";
+import { deleteLogs } from "../../../store/logs";
+import { deleteServers, registerServers } from "../../../store/servers";
 import { PostServersRequest, Server } from "../../../utils/types";
+import ConfirmModal from "./ConfirmModal";
+import EditForm from "./EditForm";
 import RegisterForm from "./RegisterForm";
 import ServerList from "./ServerList";
-import EditForm from "./EditForm";
-import ConfirmModal from "./ConfirmModal";
-import { AppDispatch, RootState } from "../../../store";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteServers, registerServers } from "../../../store/servers";
-import { deleteLogs } from "../../../store/logs";
 
 const styles = {
   container: css`
@@ -35,7 +35,7 @@ const styles = {
   },
 };
 
-const ServerContainer: VFC = () => {
+const ServerContainer: FC = () => {
   const [isFetching, setIsFetching] = useState(true);
   const [editingServers, setEditingServers] = useState<Server[]>([]);
   const [isEditing, setIsEditing] = useState(false);

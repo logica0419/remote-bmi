@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import axios, { AxiosError } from "axios";
-import { FormEvent, useState, VFC } from "react";
+import { FC, FormEvent, useState } from "react";
 import Form from "./Form";
 
 const styles = {
@@ -13,7 +13,7 @@ interface Props {
   fetchLoginStatus: () => Promise<void>;
 }
 
-const Auth: VFC<Props> = ({ fetchLoginStatus }) => {
+const Auth: FC<Props> = ({ fetchLoginStatus }) => {
   const [signUpName, setSignUpName] = useState("");
 
   const onSignUp = (e: FormEvent<HTMLFormElement>) => {

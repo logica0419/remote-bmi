@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
-import { VFC } from "react";
+import { FC } from "react";
 import { Server } from "../../../utils/types";
 
 const styles = {
   table: css`
     table-layout: fixed;
-    border-collapse: collapse;s
+    border-collapse: collapse;
   `,
   th: css`
     padding: 0 10px;
@@ -21,7 +21,7 @@ interface Props {
   servers: Server[];
 }
 
-const ServerList: VFC<Props> = ({ servers }) => {
+const ServerList: FC<Props> = ({ servers }) => {
   return (
     <table css={styles.table}>
       <thead>
