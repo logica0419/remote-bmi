@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction, VFC } from "react";
+import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction } from "react";
 
 const styles = {
   input: css`
@@ -27,7 +27,7 @@ type Props = {
   setName: Dispatch<SetStateAction<string>>;
 };
 
-const Form: VFC<Props> = ({ action, onSubmit, name, setName }) => {
+const Form: FC<Props> = ({ action, onSubmit, name, setName }) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setName(value);

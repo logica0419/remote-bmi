@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { VFC } from "react";
+import { FC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
@@ -12,7 +12,7 @@ const styles = {
   `,
 };
 
-const MeDisplay: VFC = () => {
+const MeDisplay: FC = () => {
   const myName = useSelector((state: RootState) => state.me.name);
 
   return (

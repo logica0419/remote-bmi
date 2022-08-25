@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { Dispatch, SetStateAction, VFC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 
 const styles = {
   background: css`
@@ -46,7 +46,7 @@ interface Props {
   setIsConfirming: Dispatch<SetStateAction<boolean>>;
 }
 
-const ConfirmModal: VFC<Props> = ({ resetServers, setIsConfirming }) => {
+const ConfirmModal: FC<Props> = ({ resetServers, setIsConfirming }) => {
   const onConfirm = () => {
     resetServers();
     setIsConfirming(false);

@@ -1,7 +1,7 @@
 import { css, Global } from "@emotion/react";
-import { VFC } from "react";
+import { FC } from "react";
 
-const GlobalStyle: VFC = () => {
+const GlobalStyle: FC = () => {
   return (
     <Global
       styles={css`

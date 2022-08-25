@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import axios from "axios";
-import { useEffect, useState, VFC } from "react";
+import { FC, useEffect, useState } from "react";
 
 const styles = {
   container: css`
@@ -11,7 +11,7 @@ const styles = {
   `,
 };
 
-const VersionDisplay: VFC = () => {
+const VersionDisplay: FC = () => {
   const [version, setVersion] = useState("loading...");
 
   useEffect(() => {

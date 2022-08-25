@@ -1,12 +1,21 @@
-import { useEffect, VFC } from "react";
+import { FC, useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Home from "./components/Home";
 import Auth from "./components/Auth";
+import Home from "./components/Home";
 import { useLoginCheck } from "./utils/login";
 
-const Router: VFC = () => {
-  const { authorized, isFetching, fetchLoginStatus } = useLoginCheck();
+const RootNavigator: FC = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/");
+  }, []);
+
+  return <></>;
+};
+
+const Router: FC = () => {
+  const { authorized, isFetching, fetchLoginStatus } = useLoginCheck();
 
   useEffect(() => {
     fetchLoginStatus();
@@ -17,22 +26,12 @@ const Router: VFC = () => {
       {authorized ? (
         <>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/*"
-            element={() => {
-              navigate("/");
-            }}
-          />
+          <Route path="/*" element={<RootNavigator />} />
         </>
       ) : isFetching ? (
         <>
           <Route path="/" element={<h2>Checking User Status...</h2>} />
-          <Route
-            path="/*"
-            element={() => {
-              navigate("/");
-            }}
-          />
+          <Route path="/*" element={<RootNavigator />} />
         </>
       ) : (
         <>
@@ -40,12 +39,7 @@ const Router: VFC = () => {
             path="/"
             element={<Auth fetchLoginStatus={fetchLoginStatus} />}
           />
-          <Route
-            path="/*"
-            element={() => {
-              navigate("/");
-            }}
-          />
+          <Route path="/*" element={<RootNavigator />} />
         </>
       )}
     </Routes>

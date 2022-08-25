@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { ChangeEvent, Dispatch, SetStateAction, VFC } from "react";
+import { ChangeEvent, Dispatch, FC, SetStateAction } from "react";
 import { Server } from "../../../utils/types";
 
 const styles = {
@@ -25,7 +25,7 @@ interface Props {
   setEditingServers: Dispatch<SetStateAction<Server[]>>;
 }
 
-const RegisterForm: VFC<Props> = ({ editingServers, setEditingServers }) => {
+const RegisterForm: FC<Props> = ({ editingServers, setEditingServers }) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
     const value = target.value;

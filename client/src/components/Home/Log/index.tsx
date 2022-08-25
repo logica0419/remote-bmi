@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import axios from "axios";
-import { useEffect, useState, VFC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store";
 import { registerLogs } from "../../../store/logs";
@@ -49,7 +49,7 @@ const styles = {
   },
 };
 
-const Logs: VFC = () => {
+const Logs: FC = () => {
   const [selectedLogIndex, setSelectedLogIndex] = useState(0);
 
   const logs = useSelector((state: RootState) => state.logs);
