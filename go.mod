@@ -16,7 +16,7 @@ require (
 	github.com/spf13/viper v1.13.0
 	github.com/srinathgs/mysqlstore v0.0.0-20200417050510-9cbb9420fc4c
 	gorm.io/driver/mysql v1.3.6
-	gorm.io/gorm v1.23.9
+	gorm.io/gorm v1.23.10
 )
 
 require (
