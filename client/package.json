@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@emotion/react": "^11.10.5",
-    "@reduxjs/toolkit": "^1.9.0",
+    "@reduxjs/toolkit": "^1.9.1",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "@types/react-redux": "^7.1.24",
