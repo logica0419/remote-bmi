@@ -9,6 +9,7 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.19.0",
     "@emotion/react": "^11.10.5",
     "@reduxjs/toolkit": "^1.9.1",
     "@types/react": "^18.0.26",
