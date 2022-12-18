@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/logica0419/remote-bmi/server/benchmark"
@@ -15,16 +16,16 @@ import (
 var c = &Config{}
 
 type Config struct {
-	Address string `mapstructure:"address" json:"address"`
+	Address string `mapstructure:"address" json:"address" yaml:"address"`
 	MySQL   struct {
-		Hostname string `mapstructure:"hostname" json:"hostname,omitempty"`
-		Port     int    `mapstructure:"port" json:"port,omitempty"`
-		Username string `mapstructure:"username" json:"username,omitempty"`
-		Password string `mapstructure:"password" json:"password,omitempty"`
-		Database string `mapstructure:"database" json:"database,omitempty"`
-	} `mapstructure:"mysql" json:"mysql"`
-	Version string `mapstructure:"version" json:"version,omitempty"`
-	BenchIP string `mapstructure:"bench_ip" json:"bench_ip,omitempty"`
+		Hostname string `mapstructure:"hostname" json:"hostname" yaml:"hostname"`
+		Port     int    `mapstructure:"port" json:"port" yaml:"port"`
+		Username string `mapstructure:"username" json:"username" yaml:"username"`
+		Password string `mapstructure:"password" json:"password" yaml:"password"`
+		Database string `mapstructure:"database" json:"database" yaml:"database"`
+	} `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
+	Version string `mapstructure:"version" json:"version" yaml:"version"`
+	BenchIP string `mapstructure:"bench_ip" json:"bench_ip" yaml:"bench_ip"`
 }
 
 func newRouterConfig(c *Config) *router.Config {
@@ -62,6 +63,7 @@ func loadConfig(configFile string) error {
 	viper.SetDefault("bench_ip", "127.0.0.1")
 
 	viper.AutomaticEnv()
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
 	viper.SetConfigFile(configFile)
 
