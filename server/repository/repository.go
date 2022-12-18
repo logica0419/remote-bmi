@@ -42,6 +42,7 @@ func createDB(c *Config) error {
 	if err != nil {
 		return err
 	}
+	defer db.Close()
 
 	_, err = db.Exec("CREATE DATABASE IF NOT EXISTS " + c.Database)
 	if err != nil {
