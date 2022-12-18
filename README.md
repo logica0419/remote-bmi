@@ -10,7 +10,8 @@ ISUCONの練習時に使える、簡易的なベンチマーカーWebUI
 
 ## 設定
 
-リポジトリ直下に`config.json`というファイルを作って下さい。
+リポジトリ直下に`config.json`というファイルを作って下さい。  
+同様のスキーマであればyamlでも大丈夫です。
 
 ```json
 {
@@ -28,6 +29,19 @@ ISUCONの練習時に使える、簡易的なベンチマーカーWebUI
 }
 ```
 
+環境変数でも設定できます。
+
+```sh
+export ADDRESS=":3000"
+export MYSQL_HOSTNAME="localhost"
+export MYSQL_PORT="3306"
+export MYSQL_USERNAME="isucon"
+export MYSQL_PASSWORD="isucon"
+export MYSQL_DATABASE="remote_bmi"
+export VERSION="isucon11-qualify"
+export BENCH_IP="localhost"
+```
+
 ## ビルド
 
 Node.js環境とGo環境が必要です。
@@ -38,17 +52,14 @@ make init
 make build
 ```
 
-- サーバーサイド - リポジトリのルートディレクトリに`remote-bmi`という名前の実行用バイナリ
-- クライアントサイド - `client/dist`にコンパイル & バンドルされた静的ファイル
-
-がそれぞれ生成されます。
+リポジトリのルートディレクトリに`remote-bmi`という名前の実行用バイナリが生成されます。
 
 ## 実行
 
-ビルドを実行した上で、下記のコマンドを入力するとサーバーが立ち上がります。
+ビルドを実行した上で、バイナリファイルと設定ファイルをお好きな場所に設置し、下記のコマンドを入力するとサーバーが立ち上がります。
 
 ```sh
-./remote-bmi serve
+{バイナリまでのパス}/remote-bmi serve -c {設定ファイルのパス}
 ```
 
 ベンチマークサーバー内でのsystemdによる管理をオススメします。
