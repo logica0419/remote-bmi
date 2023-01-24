@@ -16,7 +16,7 @@
     "@types/react-dom": "^18.0.10",
     "@types/react-redux": "^7.1.25",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
-    "@typescript-eslint/parser": "^5.48.2",
+    "@typescript-eslint/parser": "^5.49.0",
     "@vitejs/plugin-react": "^3.0.1",
     "axios": "^1.2.3",
     "eslint": "^8.32.0",
