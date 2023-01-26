@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/go-sql-driver/mysql v1.7.0
-	github.com/gofrs/uuid v4.3.1+incompatible
+	github.com/gofrs/uuid v4.4.0+incompatible
 	github.com/google/wire v0.5.0
 	github.com/gorilla/sessions v1.2.1
 	github.com/labstack/echo-contrib v0.13.1
