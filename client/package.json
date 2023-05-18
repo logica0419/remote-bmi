@@ -28,6 +28,6 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
     "typescript": "^5.0.4",
-    "vite": "^4.3.7"
+    "vite": "^4.3.8"
   }
 }
