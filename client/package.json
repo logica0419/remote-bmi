@@ -19,7 +19,7 @@
     "@typescript-eslint/parser": "^6.3.0",
     "@vitejs/plugin-react": "^4.0.4",
     "axios": "^1.4.0",
-    "eslint": "^8.46.0",
+    "eslint": "^8.47.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-react": "^7.33.1",
     "prettier": "^3.0.1",
