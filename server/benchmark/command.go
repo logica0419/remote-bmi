@@ -17,7 +17,8 @@ var commands = map[string]command{
 		workDir: ".",
 		createCmd: func(benchServerIP string, servers []*repository.Server, serverNumber int) (string, error) {
 			return "sleep 2s", nil
-		}},
+		}
+	},
 
 	"isucon11-qualify": {
 		workDir: "/home/isucon/bench",
