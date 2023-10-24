@@ -27,7 +27,7 @@ jobs:
           key: mod-${{ hashFiles('**/package-lock.json') }}
       - name: Setup Node
         if: steps.mod-cache.outputs.cache-hit != 'true'
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: latest
           cache: "npm"
@@ -46,7 +46,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: latest
           cache: "npm"
@@ -67,7 +67,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: latest
           cache: "npm"
@@ -88,7 +88,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: latest
           cache: "npm"
