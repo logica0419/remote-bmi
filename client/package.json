@@ -13,7 +13,7 @@
     "@emotion/react": "^11.11.1",
     "@reduxjs/toolkit": "^1.9.7",
     "@types/react": "^18.2.37",
-    "@types/react-dom": "^18.2.15",
+    "@types/react-dom": "^18.2.16",
     "@types/react-redux": "^7.1.30",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.12.0",
