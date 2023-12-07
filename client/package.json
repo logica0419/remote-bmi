@@ -14,7 +14,7 @@
     "@reduxjs/toolkit": "^2.0.1",
     "@types/react": "^18.2.42",
     "@types/react-dom": "^18.2.17",
-    "@types/react-redux": "^7.1.31",
+    "@types/react-redux": "^7.1.32",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@typescript-eslint/parser": "^6.13.2",
     "@vitejs/plugin-react": "^4.2.1",
