@@ -13,7 +13,7 @@ require (
 	github.com/labstack/gommon v0.4.1
 	github.com/mattn/go-shellwords v1.0.12
 	github.com/spf13/cobra v1.8.0
-	github.com/spf13/viper v1.18.1
+	github.com/spf13/viper v1.18.2
 	github.com/srinathgs/mysqlstore v0.0.0-20200417050510-9cbb9420fc4c
 	gorm.io/driver/mysql v1.5.2
 	gorm.io/gorm v1.25.5
