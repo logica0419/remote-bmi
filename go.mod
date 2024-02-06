@@ -15,8 +15,8 @@ require (
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/viper v1.18.2
 	github.com/srinathgs/mysqlstore v0.0.0-20200417050510-9cbb9420fc4c
-	gorm.io/driver/mysql v1.5.2
-	gorm.io/gorm v1.25.6
+	gorm.io/driver/mysql v1.5.4
+	gorm.io/gorm v1.25.7-0.20240204074919-46816ad31dde
 )
 
 require (
