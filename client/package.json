@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "^7.23.4",
-    "@emotion/react": "^11.11.3",
+    "@emotion/react": "^11.11.4",
     "@reduxjs/toolkit": "^2.2.1",
     "@types/react": "^18.2.60",
     "@types/react-dom": "^18.2.19",
