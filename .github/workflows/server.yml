@@ -48,7 +48,7 @@ jobs:
           cache: true
       - name: Build
         run: go build -o ./Remote-BMI server/*.go
-      - uses: actions/upload-artifact@v4.4.1
+      - uses: actions/upload-artifact@v4.4.2
         with:
           name: Remote-BMI
           path: ./Remote-BMI
